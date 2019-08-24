@@ -14,30 +14,11 @@ describe('Check rotation', ()=>{
     expect(block.rotation).toBe(1);
   })
 
-  it('should rotate back to where it started ', ()=>{
-    let block = new Block();
-
-    block.rotateRight();
-    block.rotateLeft();
-    
-    expect(block.rotation).toBe(0);
-  })
-
   it('should right rotate 360', ()=>{
     let block = new Block();
 
     for(var i=0; i<4; i++){
       block.rotateRight();
-    }
-    
-    expect(block.rotation).toBe(0);
-  })
-
-  it('should left rotate 360', ()=>{
-    let block = new Block();
-
-    for(var i=0; i<4; i++){
-      block.rotateLeft();
     }
     
     expect(block.rotation).toBe(0);
@@ -53,15 +34,52 @@ describe('Check I piece rotation', ()=>{
     expect(block.piece[2]).toEqual([1, 0, 0, 0]);
     expect(block.piece[3]).toEqual([1, 0, 0, 0]);
 
-    console.log(block.piece);
-  
     block.rotatePiece();
-
-    console.log(block.piece);
 
     expect(block.piece[0]).toEqual([1, 1, 1, 1]);
     expect(block.piece[1]).toEqual([0, 0, 0, 0]);
     expect(block.piece[2]).toEqual([0, 0, 0, 0]);
     expect(block.piece[3]).toEqual([0, 0, 0, 0]);
+  })
+})
+
+describe('Check T piece rotation', ()=>{
+  it('should rotate piece to the right', ()=>{
+    let block = new BlockT();
+
+    expect(block.piece[0]).toEqual([1, 1, 1]);
+    expect(block.piece[1]).toEqual([0, 1, 0]);
+    expect(block.piece[2]).toEqual([0, 0, 0]);
+
+    block.rotatePiece();
+    block.rotatePiece();
+    block.rotatePiece();
+    
+    expect(block.piece[0]).toEqual([1, 0, 0]);
+    expect(block.piece[1]).toEqual([1, 1, 0]);
+    expect(block.piece[2]).toEqual([1, 0, 0]);
+
+    block.rotatePiece();
+
+    expect(block.piece[0]).toEqual([1, 1, 1]);
+    expect(block.piece[1]).toEqual([0, 1, 0]);
+    expect(block.piece[2]).toEqual([0, 0, 0]);
+  })
+})
+
+describe('Check O piece rotation', ()=>{
+  it('rotation should have no effect', ()=>{
+    let block = new BlockO();
+
+    expect(block.piece[0]).toEqual([1, 1]);
+    expect(block.piece[1]).toEqual([1, 1]);
+
+    block.rotatePiece();
+    expect(block.piece[0]).toEqual([1, 1]);
+    expect(block.piece[1]).toEqual([1, 1]);
+    
+    block.rotatePiece();
+    expect(block.piece[0]).toEqual([1, 1]);
+    expect(block.piece[1]).toEqual([1, 1]);
   })
 })

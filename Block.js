@@ -2,10 +2,8 @@ class Block{
 
   constructor(){
     this.piece = [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [1, 1],
+      [1, 1]
     ];
     this.rotation = 0;
   }
@@ -14,12 +12,7 @@ class Block{
     if(++this.rotation > 3){
       this.rotation = 0;
     }
-  }
-
-  rotateLeft(){
-    if(--this.rotation < 0){
-      this.rotation = 3;
-    }
+    this.rotatePiece();
   }
 
   rotatePiece() {
@@ -43,4 +36,68 @@ class BlockI extends Block{
     ];
   }
 }
+
+class BlockS extends Block{
+  constructor(){
+    super(name);
+    this.piece = [
+      [0, 1, 1],
+      [1, 1, 0],
+      [0, 0, 0]
+    ];
+  }
+}
  
+class BlockX extends Block{
+  constructor(){
+    super(name);
+    this.piece = [
+      [1, 1, 0],
+      [0, 1, 1],
+      [0, 0, 0]
+    ];
+  }
+}
+
+class BlockO extends Block{
+  constructor(){
+    super(name);
+    this.piece = [
+      [1, 1],
+      [1, 1]
+    ];
+  }
+}
+
+class BlockL extends Block{
+  constructor(){
+    super(name);
+    this.piece = [
+      [1, 0, 0],
+      [1, 0, 0],
+      [1, 1, 0]
+    ];
+  }
+}
+
+class BlockJ extends Block{
+  constructor(){
+    super(name);
+    this.piece = [
+      [0, 1, 0],
+      [0, 1, 0],
+      [1, 1, 0]
+    ];
+  }
+}
+
+class BlockT extends Block{
+  constructor(){
+    super(name);
+    this.piece = [
+      [1, 1, 1],
+      [0, 1, 0],
+      [0, 0, 0]
+    ];
+  }
+}
