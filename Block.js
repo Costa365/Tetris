@@ -1,16 +1,13 @@
 class Block{
 
-  constructor(type = 0){
+  constructor(){
     this.piece = [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0]
     ];
-    this.type = type;
     this.rotation = 0;
-    this.x = 4;
-    this.y = 19;
   }
    
   rotateRight(){
@@ -25,22 +22,13 @@ class Block{
     }
   }
 
-  moveLeft(){
-    if(--this.x < 0){
-      this.x = 0;
+  rotatePiece() {
+    let result = [];
+    for(let i = 0; i < this.piece[0].length; i++) {
+        let row = this.piece.map(e => e[i]).reverse();
+        result.push(row);
     }
-  }
-
-  moveRight(){
-    if(++this.x > 9){
-      this.x = 9;
-    }
-  }
-
-  moveDown(){
-    if(--this.y < 0){
-      this.y = 0;
-    }
+    this.piece = result;
   }
 }
 

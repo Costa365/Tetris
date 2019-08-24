@@ -1,22 +1,6 @@
-describe('Create block of default type', ()=>{
-  it('should be 0', ()=>{
-    let block = new Block();
-    
-    expect(block.type).toBe(0);
-  })
-})
-
-describe('Create block of specified type', ()=>{
-  it('should be 1', ()=>{
-    let block = new Block(1);
-    
-    expect(block.type).toBe(1);
-  })
-})
-
 describe('Check default rotation', ()=>{
   it('should be 0', ()=>{
-    let block = new Block(1);
+    let block = new Block();
     
     expect(block.rotation).toBe(0);
   })
@@ -24,14 +8,14 @@ describe('Check default rotation', ()=>{
 
 describe('Check rotation', ()=>{
   it('should rotate once ', ()=>{
-    let block = new Block(1);
+    let block = new Block();
 
     block.rotateRight();
     expect(block.rotation).toBe(1);
   })
 
   it('should rotate back to where it started ', ()=>{
-    let block = new Block(1);
+    let block = new Block();
 
     block.rotateRight();
     block.rotateLeft();
@@ -40,7 +24,7 @@ describe('Check rotation', ()=>{
   })
 
   it('should right rotate 360', ()=>{
-    let block = new Block(1);
+    let block = new Block();
 
     for(var i=0; i<4; i++){
       block.rotateRight();
@@ -50,7 +34,7 @@ describe('Check rotation', ()=>{
   })
 
   it('should left rotate 360', ()=>{
-    let block = new Block(1);
+    let block = new Block();
 
     for(var i=0; i<4; i++){
       block.rotateLeft();
@@ -60,72 +44,24 @@ describe('Check rotation', ()=>{
   })
 })
 
-describe('Check position', ()=>{
-  it('default should be center top ', ()=>{
-    let block = new Block();
+describe('Check I piece rotation', ()=>{
+  it('should rotate piece to the right', ()=>{
+    let block = new BlockI();
 
-    expect(block.x).toBe(4);
-    expect(block.y).toBe(19);
+    expect(block.piece[0]).toEqual([1, 0, 0, 0]);
+    expect(block.piece[1]).toEqual([1, 0, 0, 0]);
+    expect(block.piece[2]).toEqual([1, 0, 0, 0]);
+    expect(block.piece[3]).toEqual([1, 0, 0, 0]);
+
+    console.log(block.piece);
+  
+    block.rotatePiece();
+
+    console.log(block.piece);
+
+    expect(block.piece[0]).toEqual([1, 1, 1, 1]);
+    expect(block.piece[1]).toEqual([0, 0, 0, 0]);
+    expect(block.piece[2]).toEqual([0, 0, 0, 0]);
+    expect(block.piece[3]).toEqual([0, 0, 0, 0]);
   })
-
-  it('should move left', ()=>{
-    let block = new Block();
-
-    block.moveLeft();
-
-    expect(block.x).toBe(3);
-    expect(block.y).toBe(19);
-  })
-
-  it('should move to far left', ()=>{
-    let block = new Block();
-
-    for(var i=0; i<10; i++){
-      block.moveLeft();
-    }
-
-    expect(block.x).toBe(0);
-    expect(block.y).toBe(19);
-  })
-
-  it('should move right', ()=>{
-    let block = new Block();
-
-    block.moveRight();
-
-    expect(block.x).toBe(5);
-    expect(block.y).toBe(19);
-  })
-
-  it('should move to far right', ()=>{
-    let block = new Block();
-
-    for(var i=0; i<10; i++){
-      block.moveRight();
-    }
-
-    expect(block.x).toBe(9);
-    expect(block.y).toBe(19);
-  })
-
-  it('should move down', ()=>{
-    let block = new Block();
-
-    block.moveDown();
-
-    expect(block.x).toBe(4);
-    expect(block.y).toBe(18);
-  })
-
-  it('should move to bottom', ()=>{
-    let block = new Block();
-
-    for(var i=0; i<30; i++){
-      block.moveDown();
-    }
-
-    expect(block.x).toBe(4);
-    expect(block.y).toBe(0);
-  })
-
 })
