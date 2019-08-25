@@ -96,3 +96,16 @@ describe('Piece length should be reported', ()=>{
     expect(block.length()).toEqual(3);
   })
 })
+
+describe('Piece width should be reported', ()=>{
+  it('Check width of I piece', ()=>{
+    let block = new BlockI();
+    expect(block.width()).toEqual(1);
+  })
+  it('Check width of T piece', ()=>{
+    let block = new BlockT();
+    expect(block.width()).toEqual(3);
+    block.rotateRight();
+    expect(block.width()).toEqual(2);
+  })
+})

@@ -81,7 +81,7 @@ class PlayField{
   getFieldWithBlock(){
     this.copyFieldToFieldWithBlock();
     for(let i=0; i<this.block.length(); i++){
-      for(let j=0; j<this.block.piece[0].length; j++){
+      for(let j=0; j<this.block.width(); j++){
         if(this.block.piece[i][j] == 1) {
           this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
         }
@@ -94,10 +94,9 @@ class PlayField{
   }
 
   moveBlockDown(){
-    let collision = false;
     this.blockY++;
     for(let i=0; i<this.block.length(); i++){
-      for(let j=0; j<this.block.piece[0].length; j++){
+      for(let j=0; j<this.block.width(); j++){
         if(this.blockY+i >= 20){
           this.blockY--;
           this.freezeRows();
@@ -108,6 +107,44 @@ class PlayField{
         if(existing == 1 && block == 1){
           this.blockY--;
           this.freezeRows();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  moveBlockRight(){
+    this.blockX++;
+    for(let i=0; i<this.block.length(); i++){
+      for(let j=0; j<this.block.width(); j++){
+        if(this.blockX+j >= 10){
+          this.blockX--;
+          return false;
+        }
+        let existing = this.field[this.blockY+i][this.blockX+j];
+        let block = this.block.piece[i][j];
+        if(existing == 1 && block == 1){
+          this.blockX--;
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  moveBlockLeft(){
+    this.blockX--;
+    for(let i=0; i<this.block.length(); i++){
+      for(let j=0; j<this.block.width(); j++){
+        if(this.blockX < 0){
+          this.blockX = 0;
+          return false;
+        }
+        let existing = this.field[this.blockY+i][this.blockX+j];
+        let block = this.block.piece[i][j];
+        if(existing == 1 && block == 1){
+          this.blockX--;
           return false;
         }
       }
