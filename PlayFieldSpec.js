@@ -170,6 +170,7 @@ it('block should be moved to far left', ()=>{
   for(let i=0; i<56; i++){
     playfield.moveBlockLeft();
   }
+  
   let field2 = playfield.getFieldWithBlock();
   //console.log(field2);
 

@@ -48,8 +48,7 @@ class PlayField{
       default:
           break;
     }
-    //return block;   
-    return new BlockL();
+    return block;
   }
 
   copyFieldToFieldWithBlock(){
