@@ -2,9 +2,7 @@ class PlayField{
 
   constructor(){
     this.clearFields();
-    this.block = this.getRandomBlock();
-    this.blockX = 4;
-    this.blockY = 0;
+    this.createNewBlock();
   }
 
   clearFields(){
@@ -14,6 +12,12 @@ class PlayField{
       this.field.push([0,0,0,0,0,0,0,0,0,0]);
       this.fieldWithBlock.push([0,0,0,0,0,0,0,0,0,0]);
     }
+  }
+
+  createNewBlock(){
+    this.block = this.getRandomBlock();
+    this.blockX = 4;
+    this.blockY = 0;
   }
 
   getRandomBlock(){
@@ -44,27 +48,76 @@ class PlayField{
       default:
           break;
     }
-    return block;   
+    //return block;   
+    return new BlockL();
   }
 
   copyFieldToFieldWithBlock(){
     for(let i = 0; i < this.field.length; i++) {
       for(let j = 0; j < this.field[0].length; j++) {
-        this.fieldWithBlock[i][j] = this.field[i][j];
+        if(this.field[i][j] == 1) {
+          this.fieldWithBlock[i][j] = 1;
+        }
+        else {
+          this.fieldWithBlock[i][j] = 0;
+        }
+      }
+    }
+  }
+
+  copyFieldWithBlockToField(){
+    for(let i = 0; i < this.field.length; i++) {
+      for(let j = 0; j < this.field[0].length; j++) {
+        if(this.fieldWithBlock[i][j] == 1) {
+          this.field[i][j] = 1;
+        }
+        else {
+          this.field[i][j] = 0;
+        }
       }
     }
   }
 
   getFieldWithBlock(){
     this.copyFieldToFieldWithBlock();
-
-    for(let i=0; i<this.block.piece.length; i++){
+    for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.piece[0].length; j++){
-        this.fieldWithBlock[this.blockY+i][this.blockX+j] = this.block.piece[i][j];
+        if(this.block.piece[i][j] == 1) {
+          this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
+        }
+        else {
+          this.fieldWithBlock[this.blockY+i][this.blockX+j] = 0;
+        }
       }
     }
-    console.log(this.fieldWithBlock);
     return this.fieldWithBlock;
   }
-  
+
+  moveBlockDown(){
+    let collision = false;
+    this.blockY++;
+    for(let i=0; i<this.block.length(); i++){
+      for(let j=0; j<this.block.piece[0].length; j++){
+        if(this.blockY+i >= 20){
+          this.blockY--;
+          this.freezeRows();
+          return false;
+        }
+        let existing = this.field[this.blockY+i][this.blockX+j];
+        let block = this.block.piece[i][j];
+        if(existing == 1 && block == 1){
+          this.blockY--;
+          this.freezeRows();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  freezeRows(){
+    this.getFieldWithBlock();
+    this.copyFieldWithBlockToField();
+    this.createNewBlock();
+  }
 }

@@ -83,3 +83,16 @@ describe('Check O piece rotation', ()=>{
     expect(block.piece[1]).toEqual([1, 1]);
   })
 })
+
+describe('Piece length should be reported', ()=>{
+  it('Check length of I piece', ()=>{
+    let block = new BlockI();
+    expect(block.length()).toEqual(4);
+  })
+  it('Check length of T piece', ()=>{
+    let block = new BlockT();
+    expect(block.length()).toEqual(2);
+    block.rotateRight();
+    expect(block.length()).toEqual(3);
+  })
+})

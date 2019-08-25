@@ -23,6 +23,20 @@ class Block{
     }
     this.piece = result;
   }
+
+  length(){
+    let len = 0;
+    for(let i = 0; i < this.piece.length; i++) {
+      let total = 0;
+      for(let j = 0; j < this.piece[i].length; j++) {
+        total += this.piece[i][j];
+      }
+      if(total > 0){
+        len++;
+      }
+    }
+    return len;
+  }
 }
 
 class BlockI extends Block{

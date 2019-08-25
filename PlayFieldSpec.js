@@ -67,3 +67,50 @@ describe('Get Field with Block', ()=>{
     }
   })
 })
+
+describe('Move block around the play field', ()=>{
+  it('block should be moved down', ()=>{
+    let playfield = new PlayField();
+    let field = playfield.getFieldWithBlock();
+    let firstRow = [];
+    for(let i=0; i<10; i++){
+      firstRow.push(field[0][i]);
+    }
+    playfield.moveBlockDown();
+    let field2 = playfield.getFieldWithBlock();
+
+    expect(field2[1]).toEqual(firstRow);
+  })
+
+  it('block should be docked at the bottom of field', ()=>{
+    let playfield = new PlayField();
+    let field = playfield.getFieldWithBlock();
+    let firstRow = [];
+    for(let i=0; i<10; i++){
+      firstRow.push(field[0][i]);
+    }
+    for(let i=0; i<56; i++){
+      playfield.moveBlockDown();
+    }
+
+    let field2 = playfield.getFieldWithBlock();
+
+    expect(field2[17]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
+
+    console.log(playfield.fieldWithBlock);
+
+    /*let playfield = new PlayField();
+    let field = playfield.getFieldWithBlock();
+    let firstRow = [];
+    for(let i=0; i<10; i++){
+      firstRow.push(field[0][i]);
+    }
+    for(let i=0; i<25; i++){
+      playfield.moveBlockDown();
+    }
+
+    let field2 = playfield.getFieldWithBlock();
+
+    expect(field[19]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);*/
+  })
+})
