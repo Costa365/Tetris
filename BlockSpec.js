@@ -17,7 +17,7 @@ describe('Check rotation', ()=>{
   it('should right rotate 360', ()=>{
     let block = new Block();
 
-    for(var i=0; i<4; i++){
+    for(let i=0; i<4; i++){
       block.rotateRight();
     }
     
@@ -77,7 +77,7 @@ describe('Check O piece rotation', ()=>{
     block.rotatePiece();
     expect(block.piece[0]).toEqual([1, 1]);
     expect(block.piece[1]).toEqual([1, 1]);
-    
+
     block.rotatePiece();
     expect(block.piece[0]).toEqual([1, 1]);
     expect(block.piece[1]).toEqual([1, 1]);

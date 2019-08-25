@@ -48,7 +48,7 @@ class BlockS extends Block{
   }
 }
  
-class BlockX extends Block{
+class BlockZ extends Block{
   constructor(){
     super(name);
     this.piece = [
