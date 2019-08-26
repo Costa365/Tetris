@@ -84,9 +84,6 @@ class PlayField{
         if(this.block.piece[i][j] == 1) {
           this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
         }
-        else {
-          this.fieldWithBlock[this.blockY+i][this.blockX+j] = 0;
-        }
       }
     }
     return this.fieldWithBlock;

@@ -30,17 +30,15 @@ describe('Block test suite', function () {
     it('should rotate piece to the right', ()=>{
       let block = new BlockI();
 
-      expect(block.piece[0]).toEqual([1, 0, 0, 0]);
-      expect(block.piece[1]).toEqual([1, 0, 0, 0]);
-      expect(block.piece[2]).toEqual([1, 0, 0, 0]);
-      expect(block.piece[3]).toEqual([1, 0, 0, 0]);
+      expect(block.piece[0]).toEqual([1]);
+      expect(block.piece[1]).toEqual([1]);
+      expect(block.piece[2]).toEqual([1]);
+      expect(block.piece[3]).toEqual([1]);
 
       block.rotatePiece();
 
+      expect(block.piece.length).toBe(1);
       expect(block.piece[0]).toEqual([1, 1, 1, 1]);
-      expect(block.piece[1]).toEqual([0, 0, 0, 0]);
-      expect(block.piece[2]).toEqual([0, 0, 0, 0]);
-      expect(block.piece[3]).toEqual([0, 0, 0, 0]);
     })
   })
 
@@ -48,23 +46,55 @@ describe('Block test suite', function () {
     it('should rotate piece to the right', ()=>{
       let block = new BlockT();
 
+      expect(block.piece.length).toBe(2);
       expect(block.piece[0]).toEqual([1, 1, 1]);
       expect(block.piece[1]).toEqual([0, 1, 0]);
-      expect(block.piece[2]).toEqual([0, 0, 0]);
-
-      block.rotatePiece();
-      block.rotatePiece();
-      block.rotatePiece();
       
-      expect(block.piece[0]).toEqual([1, 0, 0]);
-      expect(block.piece[1]).toEqual([1, 1, 0]);
-      expect(block.piece[2]).toEqual([1, 0, 0]);
+      block.rotatePiece();
+      expect(block.piece[0]).toEqual([0, 1]);
+      expect(block.piece[1]).toEqual([1, 1]);
+      expect(block.piece[2]).toEqual([0, 1]);
 
       block.rotatePiece();
+      expect(block.piece[0]).toEqual([0, 1, 0]);
+      expect(block.piece[1]).toEqual([1, 1, 1]);
 
+      block.rotatePiece();
+      expect(block.piece[0]).toEqual([1, 0]);
+      expect(block.piece[1]).toEqual([1, 1]);
+      expect(block.piece[2]).toEqual([1, 0]);
+
+      block.rotatePiece();
       expect(block.piece[0]).toEqual([1, 1, 1]);
       expect(block.piece[1]).toEqual([0, 1, 0]);
-      expect(block.piece[2]).toEqual([0, 0, 0]);
+    })
+  })
+
+  describe('Check S piece rotation', ()=>{
+    it('should rotate piece to the right', ()=>{
+      let block = new BlockS();
+
+      expect(block.piece.length).toBe(2);
+      expect(block.piece[0]).toEqual([0, 1, 1]);
+      expect(block.piece[1]).toEqual([1, 1, 0]);
+      
+      block.rotatePiece();
+      expect(block.piece[0]).toEqual([1, 0]);
+      expect(block.piece[1]).toEqual([1, 1]);
+      expect(block.piece[2]).toEqual([0, 1]);
+
+      block.rotatePiece();
+      expect(block.piece[0]).toEqual([0, 1, 1]);
+      expect(block.piece[1]).toEqual([1, 1, 0]);
+
+      block.rotatePiece();
+      expect(block.piece[0]).toEqual([1, 0]);
+      expect(block.piece[1]).toEqual([1, 1]);
+      expect(block.piece[2]).toEqual([0, 1]);
+
+      block.rotatePiece();
+      expect(block.piece[0]).toEqual([0, 1, 1]);
+      expect(block.piece[1]).toEqual([1, 1, 0]);
     })
   })
 
@@ -103,6 +133,7 @@ describe('Block test suite', function () {
       let block = new BlockI();
       expect(block.width()).toEqual(1);
     })
+    
     it('should report width of T piece', ()=>{
       let block = new BlockT();
       expect(block.width()).toEqual(3);

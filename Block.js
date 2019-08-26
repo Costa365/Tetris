@@ -25,31 +25,11 @@ class Block{
   }
 
   length(){
-    let len = 0;
-    for(let i = 0; i < this.piece.length; i++) {
-      let total = 0;
-      for(let j = 0; j < this.piece[i].length; j++) {
-        total += this.piece[i][j];
-      }
-      if(total > 0){
-        len++;
-      }
-    }
-    return len;
+    return this.piece.length;
   }
 
   width(){
-    let width = 0;
-    for(let i = 0; i < this.piece.length; i++) {
-      let total = 0;
-      for(let j = 0; j < this.piece[i].length; j++) {
-        total += this.piece[i][j];
-      }
-      if(total > width){
-        width = total;
-      }
-    }
-    return width;
+    return this.piece[0].length;
   }
 }
 
@@ -57,10 +37,10 @@ class BlockI extends Block{
   constructor(){
     super(name);
     this.piece = [
-      [1, 0, 0, 0],
-      [1, 0, 0, 0],
-      [1, 0, 0, 0],
-      [1, 0, 0, 0]
+      [1],
+      [1],
+      [1],
+      [1]
     ];
   }
 }
@@ -70,8 +50,7 @@ class BlockS extends Block{
     super(name);
     this.piece = [
       [0, 1, 1],
-      [1, 1, 0],
-      [0, 0, 0]
+      [1, 1, 0]
     ];
   }
 }
@@ -82,7 +61,6 @@ class BlockZ extends Block{
     this.piece = [
       [1, 1, 0],
       [0, 1, 1],
-      [0, 0, 0]
     ];
   }
 }
@@ -101,9 +79,9 @@ class BlockL extends Block{
   constructor(){
     super(name);
     this.piece = [
-      [1, 0, 0],
-      [1, 0, 0],
-      [1, 1, 0]
+      [1, 0],
+      [1, 0],
+      [1, 1]
     ];
   }
 }
@@ -112,9 +90,9 @@ class BlockJ extends Block{
   constructor(){
     super(name);
     this.piece = [
-      [0, 1, 0],
-      [0, 1, 0],
-      [1, 1, 0]
+      [0, 1],
+      [0, 1],
+      [1, 1]
     ];
   }
 }
@@ -124,8 +102,7 @@ class BlockT extends Block{
     super(name);
     this.piece = [
       [1, 1, 1],
-      [0, 1, 0],
-      [0, 0, 0]
+      [0, 1, 0]
     ];
   }
 }
