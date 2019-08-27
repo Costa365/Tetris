@@ -69,7 +69,7 @@ describe('Playfield test suite', function () {
       for(let i=0; i<10; i++){
         firstRow.push(field[0][i]);
       }
-      playfield.moveBlockDown();
+      playfield.autoBlockDown();
       let field2 = playfield.getFieldWithBlock();
 
       expect(field2[1]).toEqual(firstRow);
@@ -83,7 +83,7 @@ describe('Playfield test suite', function () {
         firstRow.push(field[0][i]);
       }
       for(let i=0; i<56; i++){
-        playfield.moveBlockDown();
+        playfield.autoBlockDown();
       }
 
       let field2 = playfield.getFieldWithBlock();
@@ -168,6 +168,12 @@ describe('Playfield test suite', function () {
 
       expect(field2[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
       expect(field2[0].length).toEqual(10);
+    })
+  })
+
+  describe('Move block down the play field', ()=>{
+    it('should move the block down', ()=>{
+      expect(true).toEqual(true);
     })
   })
 })

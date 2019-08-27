@@ -3,7 +3,7 @@ var animate = function (callback) { window.setTimeout(callback, 1000/10)};
 var canvas = document.createElement("canvas");
 var width = 300;
 var height = 600;
-var framespersec = 5;
+var framespersec = 8;
 var blockwidth = width/10;
 var blockheight = height/20;
 var frame = 0;
@@ -37,6 +37,8 @@ var update = function () {
       playfield.moveBlockLeft();
     } else if (value == 39) {
       playfield.moveBlockRight();
+    } else if (value == 40) {
+      playfield.moveBlockDown();
     } else if (value == 90) {
       playfield.block.rotateRight();
     } else if (value == 88) {
@@ -47,7 +49,7 @@ var update = function () {
   
   if(++frame == framespersec)
   {
-    playfield.moveBlockDown();
+    playfield.autoBlockDown();
     frame = 0;
   }
 };

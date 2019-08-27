@@ -89,20 +89,25 @@ class PlayField{
     return this.fieldWithBlock;
   }
 
+  autoBlockDown(){
+    if(this.moveBlockDown() == false){
+      this.freezeRows();
+    }
+    return true;
+  }
+
   moveBlockDown(){
     this.blockY++;
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
         if(this.blockY+i >= 20){
           this.blockY--;
-          this.freezeRows();
           return false;
         }
         let existing = this.field[this.blockY+i][this.blockX+j];
         let block = this.block.piece[i][j];
         if(existing == 1 && block == 1){
           this.blockY--;
-          this.freezeRows();
           return false;
         }
       }
@@ -140,7 +145,7 @@ class PlayField{
         let existing = this.field[this.blockY+i][this.blockX+j];
         let block = this.block.piece[i][j];
         if(existing == 1 && block == 1){
-          this.blockX--;
+          this.blockX++;
           return false;
         }
       }
