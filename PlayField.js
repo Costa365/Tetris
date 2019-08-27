@@ -1,8 +1,8 @@
 class PlayField{
 
-  constructor(){
+  constructor(block = undefined){
     this.clearFields();
-    this.createNewBlock();
+    this.createNewBlock(block);
   }
 
   clearFields(){
@@ -14,8 +14,13 @@ class PlayField{
     }
   }
 
-  createNewBlock(){
-    this.block = this.getRandomBlock();
+  createNewBlock(block){
+    if(block == undefined){
+      this.block = this.getRandomBlock();  
+    }
+    else {
+      this.block = block;
+    }
     this.blockX = 4;
     this.blockY = 0;
   }

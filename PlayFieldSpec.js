@@ -171,9 +171,34 @@ describe('Playfield test suite', function () {
     })
   })
 
-  describe('Move block down the play field', ()=>{
-    it('should move the block down', ()=>{
-      expect(true).toEqual(true);
+  describe('Rotate T block while keeping it centered', ()=>{
+    it('should rotate block', ()=>{
+      let playfield = new PlayField(new BlockT);
+      let field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,1,1,1,0,0,0]);
+      expect(field[1]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      
+      playfield.block.rotateRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      expect(field[1]).toEqual([0,0,0,0,1,1,0,0,0,0]);
+      expect(field[2]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+
+      playfield.block.rotateRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      expect(field[1]).toEqual([0,0,0,0,1,1,1,0,0,0]);
+      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+
+      playfield.block.rotateRight();
+      field = playfield.getFieldWithBlock();
+      //expect(field[0]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      //expect(field[1]).toEqual([0,0,0,0,0,1,1,0,0,0]);
+      //expect(field[2]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      expect(field[0]).toEqual([0,0,0,0,1,0,0,0,0,0]);
+      expect(field[1]).toEqual([0,0,0,0,1,1,0,0,0,0]);
+      expect(field[2]).toEqual([0,0,0,0,1,0,0,0,0,0]);
+      
     })
   })
 })
