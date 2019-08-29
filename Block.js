@@ -37,10 +37,10 @@ class BlockI extends Block{
   constructor(){
     super(name);
     this.piece = [
-      [1],
-      [1],
-      [1],
-      [1]
+      [0,0,1,0],
+      [0,0,1,0],
+      [0,0,1,0],
+      [0,0,1,0]
     ];
   }
 }
@@ -50,7 +50,8 @@ class BlockS extends Block{
     super(name);
     this.piece = [
       [0, 1, 1],
-      [1, 1, 0]
+      [1, 1, 0],
+      [0, 0, 0]
     ];
   }
 }
@@ -61,6 +62,7 @@ class BlockZ extends Block{
     this.piece = [
       [1, 1, 0],
       [0, 1, 1],
+      [0, 0, 0]
     ];
   }
 }
@@ -79,9 +81,9 @@ class BlockL extends Block{
   constructor(){
     super(name);
     this.piece = [
-      [1, 0],
-      [1, 0],
-      [1, 1]
+      [1, 1, 1],
+      [1, 0, 0],
+      [0, 0, 0]
     ];
   }
 }
@@ -90,9 +92,9 @@ class BlockJ extends Block{
   constructor(){
     super(name);
     this.piece = [
-      [0, 1],
-      [0, 1],
-      [1, 1]
+      [1, 1, 1],
+      [0, 0, 1],
+      [0, 0, 0]
     ];
   }
 }
@@ -102,7 +104,8 @@ class BlockT extends Block{
     super(name);
     this.piece = [
       [1, 1, 1],
-      [0, 1, 0]
+      [0, 1, 0],
+      [0, 0, 0]
     ];
   }
 }

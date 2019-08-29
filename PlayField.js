@@ -105,13 +105,17 @@ class PlayField{
     this.blockY++;
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
-        if(this.blockY+i >= 20){
+        let newPeice = this.block.piece[i][j];
+        if(this.blockY+i >= 20 && newPeice==1){
           this.blockY--;
           return false;
         }
-        let existing = this.field[this.blockY+i][this.blockX+j];
-        let block = this.block.piece[i][j];
-        if(existing == 1 && block == 1){
+        let existingPeice = 0
+        if(this.blockY+i < 20 && this.blockX+j < 10){
+          existingPeice = this.field[this.blockY+i][this.blockX+j];
+        }
+
+        if(existingPeice == 1 && newPeice == 1){
           this.blockY--;
           return false;
         }
@@ -124,11 +128,14 @@ class PlayField{
     this.blockX++;
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
-        if(this.blockX+j >= 10){
+        if(this.blockX+j >= 10 && this.block.piece[i][j]==1){
           this.blockX--;
           return false;
         }
-        let existing = this.field[this.blockY+i][this.blockX+j];
+        let existing = 0;
+        if(this.blockY+i < 20 && this.blockX+j < 10){
+          existing = this.field[this.blockY+i][this.blockX+j];
+        }
         let block = this.block.piece[i][j];
         if(existing == 1 && block == 1){
           this.blockX--;
@@ -143,13 +150,19 @@ class PlayField{
     this.blockX--;
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
-        if(this.blockX < 0){
-          this.blockX = 0;
+        if(this.blockX+j < 0 && this.block.piece[i][j]==1){
+          console.log(`x:${this.blockX}, i:${i}, j:${j}, piece:${this.block.piece[i][j]}`);
+          this.blockX++;
           return false;
         }
-        let existing = this.field[this.blockY+i][this.blockX+j];
+        let existing = 0;
+        if(this.blockY+i < 20 && this.blockX+j < 10 ){
+          existing = this.field[this.blockY+i][this.blockX+j];
+        }
+        
         let block = this.block.piece[i][j];
         if(existing == 1 && block == 1){
+          console.log('Here 2');
           this.blockX++;
           return false;
         }
@@ -157,6 +170,18 @@ class PlayField{
     }
     return true;
   }
+
+/*  rotateBlockRight(){
+    let blockRotation = this.block.rotation;
+    let blockw = this.block.width;
+    this.block.rotateBlockRight();
+    if(this.BlockX == 0){
+      
+    }
+    else if(this.BlockX == 9){
+      if()
+  }
+*/
 
   freezeRows(){
     this.getFieldWithBlock();
