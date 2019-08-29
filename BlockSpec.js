@@ -119,22 +119,22 @@ describe('Block test suite', function () {
     it('should not have any effect', ()=>{
       let block = new BlockO();
 
-      expect(block.getPiece()).toEqual(
+      expect(block.getPiece()).toEqual([
         [1,1],
         [1,1]
-      );
+      ]);
 
       block.rotateRight();
-      expect(block.getPiece()).toEqual(
+      expect(block.getPiece()).toEqual([
         [1,1],
         [1,1]
-      );
+      ]);
 
       block.rotateRight();
-      expect(block.getPiece()).toEqual(
+      expect(block.getPiece()).toEqual([
         [1,1],
         [1,1]
-      );
+      ]);
     })
   })
 

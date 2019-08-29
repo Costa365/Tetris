@@ -83,10 +83,10 @@ class BlockZ extends Block{
 class BlockO extends Block{
   constructor(){
     super(name);
-    this.piece = [
+    this.piece = [[
       [1, 1],
       [1, 1]
-    ];
+    ]];
   }
 }
 
