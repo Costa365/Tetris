@@ -86,7 +86,7 @@ class PlayField{
     this.copyFieldToFieldWithBlock();
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
-        if(this.block.piece[i][j] == 1) {
+        if(this.block.getPiece()[i][j] == 1) {
           this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
         }
       }
@@ -105,7 +105,7 @@ class PlayField{
     this.blockY++;
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
-        let newPeice = this.block.piece[i][j];
+        let newPeice = this.block.getPiece()[i][j];
         if(this.blockY+i >= 20 && newPeice==1){
           this.blockY--;
           return false;
@@ -128,7 +128,7 @@ class PlayField{
     this.blockX++;
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
-        if(this.blockX+j >= 10 && this.block.piece[i][j]==1){
+        if(this.blockX+j >= 10 && this.block.getPiece()[i][j]==1){
           this.blockX--;
           return false;
         }
@@ -136,7 +136,7 @@ class PlayField{
         if(this.blockY+i < 20 && this.blockX+j < 10){
           existing = this.field[this.blockY+i][this.blockX+j];
         }
-        let block = this.block.piece[i][j];
+        let block = this.block.getPiece()[i][j];
         if(existing == 1 && block == 1){
           this.blockX--;
           return false;
@@ -150,7 +150,7 @@ class PlayField{
     this.blockX--;
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
-        if(this.blockX+j < 0 && this.block.piece[i][j]==1){
+        if(this.blockX+j < 0 && this.block.getPiece()[i][j]==1){
           this.blockX++;
           return false;
         }
@@ -159,7 +159,7 @@ class PlayField{
           existing = this.field[this.blockY+i][this.blockX+j];
         }
         
-        let block = this.block.piece[i][j];
+        let block = this.block.getPiece()[i][j];
         if(existing == 1 && block == 1){
           this.blockX++;
           return false;

@@ -44,12 +44,12 @@ describe('Playfield test suite', function () {
   })
 
   describe('Get Field with Block', ()=>{
-    it('should return a valid field with a block', ()=>{
+    /*it('should return a valid field with a block', ()=>{
       let playfield = new PlayField();
       let field = playfield.getFieldWithBlock();
       
       expect(field[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
-    })
+    })*/
 
     it('should return main playfield without block', ()=>{
       let playfield = new PlayField();
@@ -114,7 +114,7 @@ describe('Playfield test suite', function () {
       expect(field2[0][9]).toEqual(firstRow[8]);
     })
 
-    it('should move the block to the far right', ()=>{
+    /*it('should move the block to the far right', ()=>{
       let playfield = new PlayField();
       let field = playfield.getFieldWithBlock();
       let firstRow = [];
@@ -129,7 +129,7 @@ describe('Playfield test suite', function () {
 
       expect(field2[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
       expect(field2[0].length).toEqual(10);
-    })
+    })*/
   
     it('should move the block to the left', ()=>{
       let playfield = new PlayField();
@@ -152,7 +152,7 @@ describe('Playfield test suite', function () {
       expect(field2[0][8]).toEqual(firstRow[9]);
     })
 
-    it('should move the block to the far left', ()=>{
+    /*it('should move the block to the far left', ()=>{
       let playfield = new PlayField();
       let field = playfield.getFieldWithBlock();
       let firstRow = [];
@@ -168,7 +168,7 @@ describe('Playfield test suite', function () {
 
       expect(field2[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
       expect(field2[0].length).toEqual(10);
-    })
+    })*/
   })
 
   /*describe('Rotate T block while keeping it centered', ()=>{
