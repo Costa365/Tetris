@@ -40,7 +40,7 @@ var update = function () {
     } else if (value == 40) {
       playfield.moveBlockDown();
     } else if (value == 90) {
-      playfield.block.rotateRight();
+      playfield.rotateBlockRight();
     } else if (value == 88) {
       // rotate left (x)
     }

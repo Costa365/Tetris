@@ -151,7 +151,6 @@ class PlayField{
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
         if(this.blockX+j < 0 && this.block.piece[i][j]==1){
-          console.log(`x:${this.blockX}, i:${i}, j:${j}, piece:${this.block.piece[i][j]}`);
           this.blockX++;
           return false;
         }
@@ -162,7 +161,6 @@ class PlayField{
         
         let block = this.block.piece[i][j];
         if(existing == 1 && block == 1){
-          console.log('Here 2');
           this.blockX++;
           return false;
         }
@@ -171,17 +169,14 @@ class PlayField{
     return true;
   }
 
-/*  rotateBlockRight(){
+  rotateBlockRight(){
     let blockRotation = this.block.rotation;
-    let blockw = this.block.width;
-    this.block.rotateBlockRight();
-    if(this.BlockX == 0){
-      
+    //console.log(`x:${this.blockX}, len:${this.block.length()}, width:${this.block.width()}`);
+    if (this.blockX > 0 && (this.blockX+this.block.length() < 10))
+    {
+      this.block.rotateRight();
     }
-    else if(this.BlockX == 9){
-      if()
   }
-*/
 
   freezeRows(){
     this.getFieldWithBlock();
