@@ -175,6 +175,20 @@ class PlayField{
     {
       this.block.rotateRight();
     }
+
+    for(let i=0; i<this.block.length(); i++){
+      for(let j=0; j<this.block.width(); j++){
+        let existing = 0;
+        if(this.blockY+i < 20 && this.blockX+j < 10 ){
+          existing = this.field[this.blockY+i][this.blockX+j];
+        }
+        
+        let block = this.block.getPiece()[i][j];
+        if(existing == 1 && block == 1){
+          this.block.rotateLeft();
+        }
+      }
+    }
   }
 
   freezeRows(){

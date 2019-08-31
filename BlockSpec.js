@@ -47,7 +47,7 @@ describe('Block test suite', function () {
       ]);
     })
   })
-
+  
   describe('Check T piece rotation', ()=>{
     it('should rotate piece to the right', ()=>{
       let block = new BlockT();
@@ -134,6 +134,46 @@ describe('Block test suite', function () {
       expect(block.getPiece()).toEqual([
         [1,1],
         [1,1]
+      ]);
+    })
+  })
+
+  describe('Check T piece left rotation', ()=>{
+    it('should rotate piece to the left', ()=>{
+      let block = new BlockT();
+
+      expect(block.getPiece()).toEqual([
+        [0, 0, 0],
+        [1, 1, 1],
+        [0, 1, 0]
+      ]);
+      
+      block.rotateLeft();
+      expect(block.getPiece()).toEqual([
+        [0, 1, 0],
+        [0, 1, 1],
+        [0, 1, 0]
+      ]);
+
+      block.rotateLeft();
+      expect(block.getPiece()).toEqual([
+        [0, 0, 0],
+        [0, 1, 0],
+        [1, 1, 1]
+      ]);
+
+      block.rotateLeft();
+      expect(block.getPiece()).toEqual([
+        [0, 1, 0],
+        [1, 1, 0],
+        [0, 1, 0]
+      ]);
+
+      block.rotateLeft();
+      expect(block.getPiece()).toEqual([
+        [0, 0, 0],
+        [1, 1, 1],
+        [0, 1, 0]
       ]);
     })
   })

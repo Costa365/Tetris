@@ -18,6 +18,12 @@ class Block{
     }
   }
 
+  rotateLeft(){
+    if(--this.rotation < 0){
+      this.rotation = this.piece.length-1;
+    }
+  }
+
   length(){
     return this.piece[this.rotation].length;
   }
