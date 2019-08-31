@@ -170,9 +170,8 @@ class PlayField{
   }
 
   rotateBlockRight(){
-    let blockRotation = this.block.rotation;
-    //console.log(`x:${this.blockX}, len:${this.block.length()}, width:${this.block.width()}`);
-    if (this.blockX > 0 && (this.blockX+this.block.length() < 10))
+    //console.log(`x:${this.blockX}, len:${this.block.length()}, width:${this.block.width()}, firstCol:${this.block.firstColumn()}`);
+    if(this.blockX >= 0 && this.blockX+this.block.width() <= 10)
     {
       this.block.rotateRight();
     }

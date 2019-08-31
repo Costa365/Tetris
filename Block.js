@@ -25,6 +25,18 @@ class Block{
   width(){
     return this.piece[this.rotation][0].length;
   }
+
+  firstColumn(){
+    let piece = this.getPiece();
+    for(let i=0; i<piece[0].length; i++){
+      for(let j=0; j<piece.length; j++){
+        if(piece[j][i] != 0){  
+          return i;
+        }
+      }
+    }
+    return 0;
+  }
 }
 
 class BlockI extends Block{
@@ -83,10 +95,11 @@ class BlockZ extends Block{
 class BlockO extends Block{
   constructor(){
     super(name);
-    this.piece = [[
-      [1, 1],
-      [1, 1]
-    ]];
+    this.piece = [
+      [
+        [1, 1],
+        [1, 1]
+      ]];
   }
 }
 

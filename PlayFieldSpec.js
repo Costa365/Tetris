@@ -34,15 +34,6 @@ describe('Playfield test suite', function () {
     })
   })
 
-  describe('Random block generation', ()=>{
-    it('should return a valid block', ()=>{
-      let playfield = new PlayField();
-      let block = playfield.getRandomBlock();
-      
-      expect(block.piece.length >= 2).toBe(true);
-    })
-  })
-
   describe('Get Field with Block', ()=>{
     it('should return a valid field with a block', ()=>{
       let playfield = new PlayField(new BlockI());
@@ -190,6 +181,109 @@ describe('Playfield test suite', function () {
       expect(field[0]).toEqual([0,0,0,0,0,1,0,0,0,0]);
       expect(field[1]).toEqual([0,0,0,0,0,1,1,0,0,0]);
       expect(field[2]).toEqual([0,0,0,0,0,1,0,0,0,0]);     
+    })
+  })
+
+  describe('Try to rotate Z block on the far left', ()=>{
+    it('should not rotate block', ()=>{
+      let playfield = new PlayField(new BlockZ);
+      playfield.rotateBlockRight();
+
+      for(let i=0; i<6; i++){
+        playfield.moveBlockLeft();
+      }
+
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[1]).toEqual([1,1,0,0,0,0,0,0,0,0]);
+      expect(field[2]).toEqual([1,0,0,0,0,0,0,0,0,0]);
+
+      playfield.rotateBlockRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[1]).toEqual([1,1,0,0,0,0,0,0,0,0]);
+      expect(field[2]).toEqual([1,0,0,0,0,0,0,0,0,0]);
+    })
+  })
+
+  describe('Try to rotate T block when on 2nd column', ()=>{
+    it('should be able to rotate block', ()=>{
+      let playfield = new PlayField(new BlockT);
+
+      for(let i=0; i<3; i++){
+        playfield.rotateBlockRight();
+        playfield.moveBlockLeft();
+      }
+
+      playfield.moveBlockLeft();
+
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[1]).toEqual([0,1,1,0,0,0,0,0,0,0]);
+      expect(field[2]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+
+      playfield.rotateBlockRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field[1]).toEqual([1,1,1,0,0,0,0,0,0,0]);
+      expect(field[2]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+
+      playfield.rotateBlockRight();
+      field = playfield.getFieldWithBlock();
+      console.log(field);
+      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[1]).toEqual([1,1,0,0,0,0,0,0,0,0]);
+      expect(field[2]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+
+      playfield.rotateBlockRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field[1]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[2]).toEqual([1,1,1,0,0,0,0,0,0,0]);
+
+    })
+  })
+
+  describe('Try to rotate S block on the far right', ()=>{
+    it('should rotate block', ()=>{
+      let playfield = new PlayField(new BlockS());
+
+      for(let i=0; i<7; i++){
+        playfield.moveBlockRight();
+      }
+
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,1]);
+      expect(field[1]).toEqual([0,0,0,0,0,0,0,1,1,0]);
+      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+
+      playfield.rotateBlockRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,1,0,0]);
+      expect(field[1]).toEqual([0,0,0,0,0,0,0,1,1,0]);
+      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,1,0]);
+    })
+  })
+
+  describe('Try to rotate rotated S block on the far right', ()=>{
+    it('should not rotate block', ()=>{
+      let playfield = new PlayField(new BlockS());
+
+      playfield.rotateBlockRight();
+      for(let i=0; i<7; i++){
+        playfield.moveBlockRight();
+      }
+
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,0]);
+      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,1,1]);
+      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,0,1]);
+
+      playfield.rotateBlockRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,0]);
+      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,1,1]);
+      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,0,1]);
     })
   })
 })

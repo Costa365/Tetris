@@ -164,4 +164,22 @@ describe('Block test suite', function () {
       expect(block.width()).toEqual(3);
     })
   })
+
+  describe('Piece first column with set block', ()=>{
+    it('should report 0 for O piece', ()=>{
+      let block = new BlockO();
+      expect(block.firstColumn()).toEqual(0);
+    })
+    
+    it('should report 0 for I piece', ()=>{
+      let block = new BlockI();
+      expect(block.firstColumn()).toEqual(0);
+    })
+
+    it('should report 2 for rotated I piece', ()=>{
+      let block = new BlockI();
+      block.rotateRight();
+      expect(block.firstColumn()).toEqual(2);
+    })
+  })
 })
