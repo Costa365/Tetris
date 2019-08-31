@@ -87,7 +87,9 @@ class PlayField{
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
         if(this.block.getPiece()[i][j] == 1) {
-          this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
+          if(this.blockY+i<20 && this.blockX+j<10){
+            this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
+          }
         }
       }
     }
@@ -170,8 +172,9 @@ class PlayField{
   }
 
   rotateBlockRight(){
-    //console.log(`x:${this.blockX}, len:${this.block.length()}, width:${this.block.width()}, firstCol:${this.block.firstColumn()}`);
-    if(this.blockX >= 0 && this.blockX+this.block.width() <= 10)
+    //console.log(`x:${this.blockX}, y:${this.blockY}, len:${this.block.length()}, width:${this.block.width()}, firstCol:${this.block.firstColumn()}`);
+    if(this.blockX >= 0 && this.blockX+this.block.width() <= 10 && 
+      this.blockY+this.block.length() <=20)
     {
       this.block.rotateRight();
     }
