@@ -15,14 +15,14 @@ class PlayField{
   }
 
   createNewBlock(block){
+    this.blockX = 4;
+    this.blockY = -1;
     if(block == undefined){
       this.block = this.getRandomBlock();  
     }
     else {
       this.block = block;
     }
-    this.blockX = 4;
-    this.blockY = 0;
   }
 
   getRandomBlock(){
@@ -31,9 +31,11 @@ class PlayField{
     switch (rnd) {
       case 0:
           block = new BlockI();
+          this.blockY=-2; // Adjust so that block apears at the top
           break;
       case 1:
           block = new BlockO();
+          this.blockY = 0; // Adjust so that block apears at the top
           break;
       case 2:
           block = new BlockS();
@@ -87,7 +89,8 @@ class PlayField{
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
         if(this.block.getPiece()[i][j] == 1) {
-          if(this.blockY+i<20 && this.blockX+j<10){
+          if((this.blockY+i>=0 && this.blockY+i<20) &&
+             (this.blockX+j>=0 && this.blockX+j<10)) {
             this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
           }
         }
@@ -113,7 +116,8 @@ class PlayField{
           return false;
         }
         let existingPeice = 0
-        if(this.blockY+i < 20 && this.blockX+j < 10){
+        if((this.blockY+i>=0 && this.blockY+i<20) &&
+           (this.blockX+j>=0 && this.blockX+j<10)) {    
           existingPeice = this.field[this.blockY+i][this.blockX+j];
         }
 
@@ -135,7 +139,8 @@ class PlayField{
           return false;
         }
         let existing = 0;
-        if(this.blockY+i < 20 && this.blockX+j < 10){
+        if((this.blockY+i>=0 && this.blockY+i<20) &&
+           (this.blockX+j>=0 && this.blockX+j<10)) {
           existing = this.field[this.blockY+i][this.blockX+j];
         }
         let block = this.block.getPiece()[i][j];
@@ -157,8 +162,9 @@ class PlayField{
           return false;
         }
         let existing = 0;
-        if(this.blockY+i < 20 && this.blockX+j < 10 ){
-          existing = this.field[this.blockY+i][this.blockX+j];
+        if((this.blockY+i>=0 && this.blockY+i<20) &&
+           (this.blockX+j>=0 && this.blockX+j<10)) {
+            existing = this.field[this.blockY+i][this.blockX+j];
         }
         
         let block = this.block.getPiece()[i][j];
@@ -182,7 +188,8 @@ class PlayField{
     for(let i=0; i<this.block.length(); i++){
       for(let j=0; j<this.block.width(); j++){
         let existing = 0;
-        if(this.blockY+i < 20 && this.blockX+j < 10 ){
+        if((this.blockY+i>=0 && this.blockY+i<20) &&
+           (this.blockX+j>=0 && this.blockX+j<10)) {
           existing = this.field[this.blockY+i][this.blockX+j];
         }
         

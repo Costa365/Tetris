@@ -31,9 +31,9 @@ describe('Block test suite', function () {
       let block = new BlockI();
 
       expect(block.getPiece()).toEqual([
+        [0,0,0,0],
+        [0,0,0,0],
         [1,1,1,1],
-        [0,0,0,0],
-        [0,0,0,0],
         [0,0,0,0]
       ]);
 
@@ -93,9 +93,9 @@ describe('Block test suite', function () {
       let block = new BlockS();
 
       expect(block.getPiece()).toEqual([
+        [0, 0, 0],
         [0, 1, 1],
-        [1, 1, 0],
-        [0, 0, 0]
+        [1, 1, 0]
       ]);
 
       block.rotateRight();
@@ -107,9 +107,9 @@ describe('Block test suite', function () {
 
       block.rotateRight();
       expect(block.getPiece()).toEqual([
+        [0, 0, 0],
         [0, 1, 1],
-        [1, 1, 0],
-        [0, 0, 0]
+        [1, 1, 0]
       ]);
 
     })

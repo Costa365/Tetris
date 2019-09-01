@@ -36,7 +36,7 @@ describe('Playfield test suite', function () {
 
   describe('Get Field with Block', ()=>{
     it('should return a valid field with a block', ()=>{
-      let playfield = new PlayField(new BlockI());
+      let playfield = new PlayField(new BlockT());
       let field = playfield.getFieldWithBlock();
       
       expect(field[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
@@ -66,7 +66,7 @@ describe('Playfield test suite', function () {
       expect(field2[1]).toEqual(firstRow);
     })
 
-    it('should docked the block at the bottom moved down many times', ()=>{
+    it('should dock the block at the bottom moved down many times', ()=>{
       let playfield = new PlayField(new BlockT());
       let field = playfield.getFieldWithBlock();
       let firstRow = [];
@@ -78,10 +78,7 @@ describe('Playfield test suite', function () {
       }
 
       let field2 = playfield.getFieldWithBlock();
-
       expect(field2[17]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
-
-      //console.log(playfield.fieldWithBlock);
     })
 
     it('should move the block to the right', ()=>{
@@ -143,7 +140,7 @@ describe('Playfield test suite', function () {
     })
 
     it('should move the block to the far left', ()=>{
-      let playfield = new PlayField(new BlockI());
+      let playfield = new PlayField(new BlockS());
       let field = playfield.getFieldWithBlock();
 
       for(let i=0; i<56; i++){
@@ -161,32 +158,30 @@ describe('Playfield test suite', function () {
     it('should rotate block', ()=>{
       let playfield = new PlayField(new BlockT);
       let field = playfield.getFieldWithBlock();
-      expect(field[1]).toEqual([0,0,0,0,1,1,1,0,0,0]);
-      expect(field[2]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      expect(field[0]).toEqual([0,0,0,0,1,1,1,0,0,0]);
+      expect(field[1]).toEqual([0,0,0,0,0,1,0,0,0,0]);
       
       playfield.rotateBlockRight();
       field = playfield.getFieldWithBlock();
-      expect(field[0]).toEqual([0,0,0,0,0,1,0,0,0,0]);
-      expect(field[1]).toEqual([0,0,0,0,1,1,0,0,0,0]);
-      expect(field[2]).toEqual([0,0,0,0,0,1,0,0,0,0]);
-
-      playfield.rotateBlockRight();
-      field = playfield.getFieldWithBlock();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual([0,0,0,0,1,1,0,0,0,0]);
       expect(field[1]).toEqual([0,0,0,0,0,1,0,0,0,0]);
-      expect(field[2]).toEqual([0,0,0,0,1,1,1,0,0,0]);
 
       playfield.rotateBlockRight();
       field = playfield.getFieldWithBlock();
       expect(field[0]).toEqual([0,0,0,0,0,1,0,0,0,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,1,1,0,0,0]);
-      expect(field[2]).toEqual([0,0,0,0,0,1,0,0,0,0]);     
+      expect(field[1]).toEqual([0,0,0,0,1,1,1,0,0,0]);
+
+      playfield.rotateBlockRight();
+      field = playfield.getFieldWithBlock();
+      expect(field[0]).toEqual([0,0,0,0,0,1,1,0,0,0]);
+      expect(field[1]).toEqual([0,0,0,0,0,1,0,0,0,0]);     
     })
   })
 
   describe('Try to rotate Z block on the far left', ()=>{
     it('should not rotate block', ()=>{
       let playfield = new PlayField(new BlockZ);
+      playfield.moveBlockDown();
       playfield.rotateBlockRight();
 
       for(let i=0; i<6; i++){
@@ -209,6 +204,7 @@ describe('Playfield test suite', function () {
   describe('Try to rotate T block when on 2nd column', ()=>{
     it('should be able to rotate block', ()=>{
       let playfield = new PlayField(new BlockT);
+      playfield.moveBlockDown();
 
       for(let i=0; i<3; i++){
         playfield.rotateBlockRight();
@@ -230,7 +226,6 @@ describe('Playfield test suite', function () {
 
       playfield.rotateBlockRight();
       field = playfield.getFieldWithBlock();
-      console.log(field);
       expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
       expect(field[1]).toEqual([1,1,0,0,0,0,0,0,0,0]);
       expect(field[2]).toEqual([0,1,0,0,0,0,0,0,0,0]);
@@ -259,9 +254,8 @@ describe('Playfield test suite', function () {
 
       playfield.rotateBlockRight();
       field = playfield.getFieldWithBlock();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,1,0,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,0,0,1,1,0]);
-      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,1,0]);
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,1,1,0]);
+      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,1,0]);
     })
   })
 
@@ -275,15 +269,13 @@ describe('Playfield test suite', function () {
       }
 
       field = playfield.getFieldWithBlock();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,1,1]);
-      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,0,1]);
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,1]);
+      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,0,1]);
 
       playfield.rotateBlockRight();
       field = playfield.getFieldWithBlock();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,1,1]);
-      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,0,1]);
+      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,1]);
+      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,0,1]);
     })
   })
 })

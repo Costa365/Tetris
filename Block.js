@@ -50,9 +50,9 @@ class BlockI extends Block{
     super(name);
     this.piece = [
       [
+        [0,0,0,0],
+        [0,0,0,0],
         [1,1,1,1],
-        [0,0,0,0],
-        [0,0,0,0],
         [0,0,0,0]
       ],
       [
@@ -69,9 +69,9 @@ class BlockS extends Block{
     super(name);
     this.piece = [
       [
+        [0, 0, 0],
         [0, 1, 1],
-        [1, 1, 0],
-        [0, 0, 0]
+        [1, 1, 0]
       ],
       [
         [1, 0, 0],
@@ -86,9 +86,9 @@ class BlockZ extends Block{
     super(name);
     this.piece = [
       [
+        [0, 0, 0],
         [1, 1, 0],
-        [0, 1, 1],
-        [0, 0, 0]
+        [0, 1, 1]
       ],
       [
         [0, 0, 1],
