@@ -278,4 +278,56 @@ describe('Playfield test suite', function () {
       expect(field[1]).toEqual([0,0,0,0,0,0,0,0,0,1]);
     })
   })
+
+  describe('Fully populated row should be handle', ()=>{
+    it('should remove full line', ()=>{
+      let playfield = new PlayField(new PieceO());
+
+      for(let i=0; i<4; i++){
+        playfield.movePieceLeft();
+      }
+
+      for(let i=0; i<21; i++){
+        playfield.autoPieceDown();
+      }
+
+      for(let i=0; i<2; i++){
+        playfield.movePieceLeft();
+      }
+
+      for(let i=0; i<20; i++){
+        playfield.autoPieceDown();
+      }
+
+      for(let i=0; i<20; i++){
+        playfield.autoPieceDown();
+      }
+
+      for(let i=0; i<18; i++){
+        playfield.autoPieceDown();
+      }
+
+      for(let i=0; i<4; i++){
+        playfield.movePieceRight();
+      }
+
+      for(let i=0; i<20; i++){
+        playfield.autoPieceDown();
+      }
+
+      for(let i=0; i<2; i++){
+        playfield.movePieceRight();
+      }
+
+      for(let i=0; i<20; i++){
+        playfield.autoPieceDown();
+      }
+
+      field = playfield.getFieldWithPiece();
+      console.log(field);
+      expect(field[18]).toEqual([0,0,0,0,1,1,0,0,0,0]);
+      expect(field[19]).toEqual([0,0,0,0,1,1,0,0,0,0]);
+
+    })
+  })
 })

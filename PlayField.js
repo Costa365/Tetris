@@ -4,8 +4,9 @@ const HEIGHT = 20;
 class PlayField{
 
   constructor(piece = undefined){
+    this.defaultPiece = piece;
     this.clearField();
-    this.createNewPiece(piece);
+    this.createNewPiece();
   }
 
   clearField(){
@@ -17,14 +18,14 @@ class PlayField{
     }
   }
 
-  createNewPiece(piece){
+  createNewPiece(){
     this.pieceX = 4;
     this.pieceY = -1;
-    if(piece == undefined){
+    if(this.defaultPiece == undefined){
       this.piece = this.getRandomPiece();  
     }
     else {
-      this.piece = piece;
+      this.piece = this.defaultPiece;
     }
   }
 
@@ -212,9 +213,37 @@ class PlayField{
     }
   }
 
+  checkForCompletedRows(){
+    let newField = [];
+    let completedRows = 0;
+    
+    for(let i = 0; i < this.field.length; i++) {
+      let rowComplete = true;
+      for(let j = 0; j < this.field[0].length; j++) {
+        if(this.field[i][j] == 0){
+          rowComplete = false;
+          break;
+        }
+      }
+      if(!rowComplete){
+        newField.push(this.field[i]);
+      }else{
+        completedRows++;
+      }
+    }
+
+    if(completedRows>0){
+      for(let i=newField.length; i<20; i++){
+        newField.unshift([0,0,0,0,0,0,0,0,0,0]);
+      }
+      this.field = newField;
+    }
+  }
+
   freezeRows(){
     this.getFieldWithPiece();
     this.copyFieldWithPieceToField();
     this.createNewPiece();
+    this.checkForCompletedRows();
   }
 }
