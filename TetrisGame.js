@@ -50,6 +50,7 @@ var update = function () {
   if(++frame == framespersec)
   {
     playfield.autoPieceDown();
+    document.getElementById("score").innerHTML = playfield.getScore();
     frame = 0;
   }
 };

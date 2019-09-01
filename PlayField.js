@@ -5,6 +5,7 @@ class PlayField{
 
   constructor(piece = undefined){
     this.defaultPiece = piece;
+    this.score = new Score();
     this.clearField();
     this.createNewPiece();
   }
@@ -12,6 +13,7 @@ class PlayField{
   clearField(){
     this.field = [];
     this.fieldWithPiece = [];
+    this.score.resetScore();
     for(let i = 0; i < HEIGHT; i++) {
       this.field.push([0,0,0,0,0,0,0,0,0,0]);
       this.fieldWithPiece.push([0,0,0,0,0,0,0,0,0,0]);
@@ -60,6 +62,10 @@ class PlayField{
           break;
     }
     return piece;
+  }
+
+  getScore(){
+    return this.score.getScore();
   }
 
   isInBounds(i, j){
@@ -238,12 +244,14 @@ class PlayField{
       }
       this.field = newField;
     }
+
+    return completedRows;
   }
 
   freezeRows(){
     this.getFieldWithPiece();
     this.copyFieldWithPieceToField();
     this.createNewPiece();
-    this.checkForCompletedRows();
+    this.score.rowsCompleted(this.checkForCompletedRows());
   }
 }
