@@ -4,13 +4,13 @@ var canvas = document.createElement("canvas");
 var width = 300;
 var height = 600;
 var framespersec = 8;
-var blockwidth = width/10;
-var blockheight = height/20;
 var frame = 0;
 canvas.width = width;
 canvas.height = height;
 var context = canvas.getContext('2d');
 var playfield = new PlayField();
+var blockwidth = width/playfield.width();
+var blockheight = height/playfield.height();
 
 var keysDown = {};
 
@@ -19,8 +19,8 @@ var render = function () {
   context.fillRect(0, 0, width, height);
 
   context.fillStyle = "#ffff00";
-  // draw field with block
-  let field = playfield.getFieldWithBlock();
+  // draw field with piece
+  let field = playfield.getFieldWithPiece();
   for(let i = 0; i < field.length; i++) {
     for(let j = 0; j < field[0].length; j++) {
       if(field[i][j]==1){
@@ -34,13 +34,13 @@ var update = function () {
   for (var key in keysDown) {
     var value = Number(key);
     if (value == 37) {
-      playfield.moveBlockLeft();
+      playfield.movePieceLeft();
     } else if (value == 39) {
-      playfield.moveBlockRight();
+      playfield.movePieceRight();
     } else if (value == 40) {
-      playfield.moveBlockDown();
+      playfield.movePieceDown();
     } else if (value == 90) {
-      playfield.rotateBlockRight();
+      playfield.rotatePieceRight();
     } else if (value == 88) {
       // rotate left (x)
     }
@@ -49,7 +49,7 @@ var update = function () {
   
   if(++frame == framespersec)
   {
-    playfield.autoBlockDown();
+    playfield.autoPieceDown();
     frame = 0;
   }
 };

@@ -1,80 +1,96 @@
+const WIDTH = 10;
+const HEIGHT = 20;
+
 class PlayField{
 
-  constructor(block = undefined){
-    this.clearFields();
-    this.createNewBlock(block);
+  constructor(piece = undefined){
+    this.clearField();
+    this.createNewPiece(piece);
   }
 
-  clearFields(){
+  clearField(){
     this.field = [];
-    this.fieldWithBlock = [];
-    for(let i = 0; i < 20; i++) {
+    this.fieldWithPiece = [];
+    for(let i = 0; i < HEIGHT; i++) {
       this.field.push([0,0,0,0,0,0,0,0,0,0]);
-      this.fieldWithBlock.push([0,0,0,0,0,0,0,0,0,0]);
+      this.fieldWithPiece.push([0,0,0,0,0,0,0,0,0,0]);
     }
   }
 
-  createNewBlock(block){
-    this.blockX = 4;
-    this.blockY = -1;
-    if(block == undefined){
-      this.block = this.getRandomBlock();  
+  createNewPiece(piece){
+    this.pieceX = 4;
+    this.pieceY = -1;
+    if(piece == undefined){
+      this.piece = this.getRandomPiece();  
     }
     else {
-      this.block = block;
+      this.piece = piece;
     }
   }
 
-  getRandomBlock(){
+  getRandomPiece(){
     let rnd = Math.floor(Math.random() * (7)) + 0;
-    let block = new BlockI();
+    let piece = new PieceI();
     switch (rnd) {
       case 0:
-          block = new BlockI();
-          this.blockY=-2; // Adjust so that block apears at the top
+          piece = new PieceI();
+          this.pieceY=-2; // Adjust so that piece appears at the top
           break;
       case 1:
-          block = new BlockO();
-          this.blockY = 0; // Adjust so that block apears at the top
+          piece = new PieceO();
+          this.pieceY = 0; // Adjust so that piece appears at the top
           break;
       case 2:
-          block = new BlockS();
+          piece = new PieceS();
           break;
       case 3:
-          block = new BlockZ();
+          piece = new PieceZ();
           break;
       case 4:
-          block = new BlockT();
+          piece = new PieceT();
           break;
       case 5:
-          block = new BlockL();
+          piece = new PieceL();
           break;
       case 6:
-          block = new BlockJ();
+          piece = new PieceJ();
           break;
       default:
           break;
     }
-    return block;
+    return piece;
   }
 
-  copyFieldToFieldWithBlock(){
+  isInBounds(i, j){
+    return (this.pieceY+i>=0 && this.pieceY+i<HEIGHT) &&
+      (this.pieceX+j>=0 && this.pieceX+j<WIDTH);
+  }
+
+  width(){
+    return WIDTH;
+  }
+
+  height(){
+    return HEIGHT;
+  }
+
+  copyFieldToFieldWithPiece(){
     for(let i = 0; i < this.field.length; i++) {
       for(let j = 0; j < this.field[0].length; j++) {
         if(this.field[i][j] == 1) {
-          this.fieldWithBlock[i][j] = 1;
+          this.fieldWithPiece[i][j] = 1;
         }
         else {
-          this.fieldWithBlock[i][j] = 0;
+          this.fieldWithPiece[i][j] = 0;
         }
       }
     }
   }
 
-  copyFieldWithBlockToField(){
+  copyFieldWithPieceToField(){
     for(let i = 0; i < this.field.length; i++) {
       for(let j = 0; j < this.field[0].length; j++) {
-        if(this.fieldWithBlock[i][j] == 1) {
+        if(this.fieldWithPiece[i][j] == 1) {
           this.field[i][j] = 1;
         }
         else {
@@ -84,45 +100,43 @@ class PlayField{
     }
   }
 
-  getFieldWithBlock(){
-    this.copyFieldToFieldWithBlock();
-    for(let i=0; i<this.block.length(); i++){
-      for(let j=0; j<this.block.width(); j++){
-        if(this.block.getPiece()[i][j] == 1) {
-          if((this.blockY+i>=0 && this.blockY+i<20) &&
-             (this.blockX+j>=0 && this.blockX+j<10)) {
-            this.fieldWithBlock[this.blockY+i][this.blockX+j] = 1;
+  getFieldWithPiece(){
+    this.copyFieldToFieldWithPiece();
+    for(let i=0; i<this.piece.length(); i++){
+      for(let j=0; j<this.piece.width(); j++){
+        if(this.piece.getPiece()[i][j] == 1) {
+          if(this.isInBounds(i,j)){
+            this.fieldWithPiece[this.pieceY+i][this.pieceX+j] = 1;
           }
         }
       }
     }
-    return this.fieldWithBlock;
+    return this.fieldWithPiece;
   }
 
-  autoBlockDown(){
-    if(this.moveBlockDown() == false){
+  autoPieceDown(){
+    if(this.movePieceDown() == false){
       this.freezeRows();
     }
     return true;
   }
 
-  moveBlockDown(){
-    this.blockY++;
-    for(let i=0; i<this.block.length(); i++){
-      for(let j=0; j<this.block.width(); j++){
-        let newPeice = this.block.getPiece()[i][j];
-        if(this.blockY+i >= 20 && newPeice==1){
-          this.blockY--;
+  movePieceDown(){
+    this.pieceY++;
+    for(let i=0; i<this.piece.length(); i++){
+      for(let j=0; j<this.piece.width(); j++){
+        let newPeice = this.piece.getPiece()[i][j];
+        if(this.pieceY+i >= HEIGHT && newPeice==1){
+          this.pieceY--;
           return false;
         }
         let existingPeice = 0
-        if((this.blockY+i>=0 && this.blockY+i<20) &&
-           (this.blockX+j>=0 && this.blockX+j<10)) {    
-          existingPeice = this.field[this.blockY+i][this.blockX+j];
+        if(this.isInBounds(i,j)){   
+          existingPeice = this.field[this.pieceY+i][this.pieceX+j];
         }
 
         if(existingPeice == 1 && newPeice == 1){
-          this.blockY--;
+          this.pieceY--;
           return false;
         }
       }
@@ -130,22 +144,21 @@ class PlayField{
     return true;
   }
 
-  moveBlockRight(){
-    this.blockX++;
-    for(let i=0; i<this.block.length(); i++){
-      for(let j=0; j<this.block.width(); j++){
-        if(this.blockX+j >= 10 && this.block.getPiece()[i][j]==1){
-          this.blockX--;
+  movePieceRight(){
+    this.pieceX++;
+    for(let i=0; i<this.piece.length(); i++){
+      for(let j=0; j<this.piece.width(); j++){
+        if(this.pieceX+j >= WIDTH && this.piece.getPiece()[i][j]==1){
+          this.pieceX--;
           return false;
         }
         let existing = 0;
-        if((this.blockY+i>=0 && this.blockY+i<20) &&
-           (this.blockX+j>=0 && this.blockX+j<10)) {
-          existing = this.field[this.blockY+i][this.blockX+j];
+        if(this.isInBounds(i,j)){
+          existing = this.field[this.pieceY+i][this.pieceX+j];
         }
-        let block = this.block.getPiece()[i][j];
-        if(existing == 1 && block == 1){
-          this.blockX--;
+        let piece = this.piece.getPiece()[i][j];
+        if(existing == 1 && piece == 1){
+          this.pieceX--;
           return false;
         }
       }
@@ -153,23 +166,22 @@ class PlayField{
     return true;
   }
 
-  moveBlockLeft(){
-    this.blockX--;
-    for(let i=0; i<this.block.length(); i++){
-      for(let j=0; j<this.block.width(); j++){
-        if(this.blockX+j < 0 && this.block.getPiece()[i][j]==1){
-          this.blockX++;
+  movePieceLeft(){
+    this.pieceX--;
+    for(let i=0; i<this.piece.length(); i++){
+      for(let j=0; j<this.piece.width(); j++){
+        if(this.pieceX+j < 0 && this.piece.getPiece()[i][j]==1){
+          this.pieceX++;
           return false;
         }
         let existing = 0;
-        if((this.blockY+i>=0 && this.blockY+i<20) &&
-           (this.blockX+j>=0 && this.blockX+j<10)) {
-            existing = this.field[this.blockY+i][this.blockX+j];
+        if(this.isInBounds(i,j)){
+          existing = this.field[this.pieceY+i][this.pieceX+j];
         }
         
-        let block = this.block.getPiece()[i][j];
-        if(existing == 1 && block == 1){
-          this.blockX++;
+        let piece = this.piece.getPiece()[i][j];
+        if(existing == 1 && piece == 1){
+          this.pieceX++;
           return false;
         }
       }
@@ -177,33 +189,32 @@ class PlayField{
     return true;
   }
 
-  rotateBlockRight(){
-    //console.log(`x:${this.blockX}, y:${this.blockY}, len:${this.block.length()}, width:${this.block.width()}, firstCol:${this.block.firstColumn()}`);
-    if(this.blockX >= 0 && this.blockX+this.block.width() <= 10 && 
-      this.blockY+this.block.length() <=20)
+  rotatePieceRight(){
+    //console.log(`x:${this.pieceX}, y:${this.pieceY}, len:${this.piece.length()}, width:${this.piece.width()}, firstCol:${this.piece.firstColumn()}`);
+    if(this.pieceX >= 0 && this.pieceX+this.piece.width() <= WIDTH && 
+      this.pieceY+this.piece.length() <=HEIGHT)
     {
-      this.block.rotateRight();
+      this.piece.rotateRight();
     }
 
-    for(let i=0; i<this.block.length(); i++){
-      for(let j=0; j<this.block.width(); j++){
+    for(let i=0; i<this.piece.length(); i++){
+      for(let j=0; j<this.piece.width(); j++){
         let existing = 0;
-        if((this.blockY+i>=0 && this.blockY+i<20) &&
-           (this.blockX+j>=0 && this.blockX+j<10)) {
-          existing = this.field[this.blockY+i][this.blockX+j];
+        if(this.isInBounds(i,j)){
+          existing = this.field[this.pieceY+i][this.pieceX+j];
         }
         
-        let block = this.block.getPiece()[i][j];
-        if(existing == 1 && block == 1){
-          this.block.rotateLeft();
+        let piece = this.piece.getPiece()[i][j];
+        if(existing == 1 && piece == 1){
+          this.piece.rotateLeft();
         }
       }
     }
   }
 
   freezeRows(){
-    this.getFieldWithBlock();
-    this.copyFieldWithBlockToField();
-    this.createNewBlock();
+    this.getFieldWithPiece();
+    this.copyFieldWithPieceToField();
+    this.createNewPiece();
   }
 }

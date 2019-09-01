@@ -1,7 +1,7 @@
-class Block{
+class Piece{
 
   constructor(){
-    this.piece = [
+    this.blocks = [
       [1, 1],
       [1, 1]
     ];
@@ -9,34 +9,34 @@ class Block{
   }
 
   getPiece(){
-    return this.piece[this.rotation];
+    return this.blocks[this.rotation];
   }
    
   rotateRight(){
-    if(++this.rotation >= this.piece.length){
+    if(++this.rotation >= this.blocks.length){
       this.rotation = 0;
     }
   }
 
   rotateLeft(){
     if(--this.rotation < 0){
-      this.rotation = this.piece.length-1;
+      this.rotation = this.blocks.length-1;
     }
   }
 
   length(){
-    return this.piece[this.rotation].length;
+    return this.blocks[this.rotation].length;
   }
 
   width(){
-    return this.piece[this.rotation][0].length;
+    return this.blocks[this.rotation][0].length;
   }
 
   firstColumn(){
-    let piece = this.getPiece();
-    for(let i=0; i<piece[0].length; i++){
-      for(let j=0; j<piece.length; j++){
-        if(piece[j][i] != 0){  
+    let blocks = this.getPiece();
+    for(let i=0; i<blocks[0].length; i++){
+      for(let j=0; j<blocks.length; j++){
+        if(blocks[j][i] != 0){  
           return i;
         }
       }
@@ -45,10 +45,10 @@ class Block{
   }
 }
 
-class BlockI extends Block{
+class PieceI extends Piece{
   constructor(){
     super(name);
-    this.piece = [
+    this.blocks = [
       [
         [0,0,0,0],
         [0,0,0,0],
@@ -64,10 +64,10 @@ class BlockI extends Block{
   }
 }
 
-class BlockS extends Block{
+class PieceS extends Piece{
   constructor(){
     super(name);
-    this.piece = [
+    this.blocks = [
       [
         [0, 0, 0],
         [0, 1, 1],
@@ -81,10 +81,10 @@ class BlockS extends Block{
   }
 }
  
-class BlockZ extends Block{
+class PieceZ extends Piece{
   constructor(){
     super(name);
-    this.piece = [
+    this.blocks = [
       [
         [0, 0, 0],
         [1, 1, 0],
@@ -98,10 +98,10 @@ class BlockZ extends Block{
   }
 }
 
-class BlockO extends Block{
+class PieceO extends Piece{
   constructor(){
     super(name);
-    this.piece = [
+    this.blocks = [
       [
         [1, 1],
         [1, 1]
@@ -109,10 +109,10 @@ class BlockO extends Block{
   }
 }
 
-class BlockL extends Block{
+class PieceL extends Piece{
   constructor(){
     super(name);
-    this.piece = [
+    this.blocks = [
       [
         [0, 0, 0],
         [1, 1, 1],
@@ -136,10 +136,10 @@ class BlockL extends Block{
   }
 }
 
-class BlockJ extends Block{
+class PieceJ extends Piece{
   constructor(){
     super(name);
-    this.piece = [
+    this.blocks = [
       [
         [0, 0, 0],
         [1, 1, 1],
@@ -163,10 +163,10 @@ class BlockJ extends Block{
   }
 }
 
-class BlockT extends Block{
+class PieceT extends Piece{
   constructor(){
     super(name);
-    this.piece = [
+    this.blocks = [
       [
         [0, 0, 0],
         [1, 1, 1],
