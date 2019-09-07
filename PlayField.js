@@ -5,6 +5,7 @@ class PlayField{
 
   constructor(piece = undefined){
     this.defaultPiece = piece;
+    this.nextPiece = piece;
     this.score = new Score();
     this.clearField();
     this.createNewPiece();
@@ -24,10 +25,15 @@ class PlayField{
     this.pieceX = 4;
     this.pieceY = -1;
     if(this.defaultPiece == undefined){
-      this.piece = this.getRandomPiece();  
+      if(this.nextPiece ==  undefined){
+        this.nextPiece = this.getRandomPiece();    
+      }
+      this.piece = this.nextPiece;  
+      this.nextPiece = this.getRandomPiece();
     }
     else {
       this.piece = this.defaultPiece;
+      this.nextPiece = this.defaultPiece;
     }
   }
 
@@ -253,5 +259,20 @@ class PlayField{
     this.copyFieldWithPieceToField();
     this.createNewPiece();
     this.score.rowsCompleted(this.checkForCompletedRows());
+  }
+
+  getNextPiece(){
+    let nextPieceNoBlankRows = [];
+    let nextPiece = this.nextPiece.getPiece();
+
+    for(let i = 0; i < nextPiece.length; i++) {
+      for(let j = 0; j < nextPiece[i].length; j++) {
+        if(nextPiece[i][j]!=0){
+          nextPieceNoBlankRows.push(nextPiece[i]);
+          break;
+        }
+      }
+    }
+    return nextPieceNoBlankRows;
   }
 }
