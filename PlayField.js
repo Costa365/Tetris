@@ -1,5 +1,5 @@
-const WIDTH = 10;
-const HEIGHT = 20;
+const COLUMNS = 10;
+const ROWS = 20;
 
 class PlayField{
 
@@ -14,7 +14,7 @@ class PlayField{
     this.field = [];
     this.fieldWithPiece = [];
     this.score.resetScore();
-    for(let i = 0; i < HEIGHT; i++) {
+    for(let i = 0; i < ROWS; i++) {
       this.field.push([0,0,0,0,0,0,0,0,0,0]);
       this.fieldWithPiece.push([0,0,0,0,0,0,0,0,0,0]);
     }
@@ -69,16 +69,16 @@ class PlayField{
   }
 
   isInBounds(i, j){
-    return (this.pieceY+i>=0 && this.pieceY+i<HEIGHT) &&
-      (this.pieceX+j>=0 && this.pieceX+j<WIDTH);
+    return (this.pieceY+i>=0 && this.pieceY+i<ROWS) &&
+      (this.pieceX+j>=0 && this.pieceX+j<COLUMNS);
   }
 
-  width(){
-    return WIDTH;
+  columns(){
+    return COLUMNS;
   }
 
-  height(){
-    return HEIGHT;
+  rows(){
+    return ROWS;
   }
 
   copyFieldToFieldWithPiece(){
@@ -133,7 +133,7 @@ class PlayField{
     for(let i=0; i<this.piece.length(); i++){
       for(let j=0; j<this.piece.width(); j++){
         let newPeice = this.piece.getPiece()[i][j];
-        if(this.pieceY+i >= HEIGHT && newPeice==1){
+        if(this.pieceY+i >= ROWS && newPeice==1){
           this.pieceY--;
           return false;
         }
@@ -155,7 +155,7 @@ class PlayField{
     this.pieceX++;
     for(let i=0; i<this.piece.length(); i++){
       for(let j=0; j<this.piece.width(); j++){
-        if(this.pieceX+j >= WIDTH && this.piece.getPiece()[i][j]==1){
+        if(this.pieceX+j >= COLUMNS && this.piece.getPiece()[i][j]==1){
           this.pieceX--;
           return false;
         }
@@ -198,8 +198,8 @@ class PlayField{
 
   rotatePieceRight(){
     //console.log(`x:${this.pieceX}, y:${this.pieceY}, len:${this.piece.length()}, width:${this.piece.width()}, firstCol:${this.piece.firstColumn()}`);
-    if(this.pieceX >= 0 && this.pieceX+this.piece.width() <= WIDTH && 
-      this.pieceY+this.piece.length() <=HEIGHT)
+    if(this.pieceX >= 0 && this.pieceX+this.piece.width() <= COLUMNS && 
+      this.pieceY+this.piece.length() <=ROWS)
     {
       this.piece.rotateRight();
     }

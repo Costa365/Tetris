@@ -1,22 +1,26 @@
-var animate = function (callback) { window.setTimeout(callback, 1000/10)};
+let animate = function (callback) { window.setTimeout(callback, 1000/10)};
 	
-var canvas = document.createElement("canvas");
-var width = 300;
-var height = 600;
-var framespersec = 8;
-var frame = 0;
-canvas.width = width;
+let canvas = document.createElement("canvas");
+let width = 300;
+let height = 600;
+let framespersec = 8;
+let frame = 0;
+canvas.width = width+125;
 canvas.height = height;
-var context = canvas.getContext('2d');
-var playfield = new PlayField();
-var blockwidth = width/playfield.width();
-var blockheight = height/playfield.height();
+let context = canvas.getContext('2d');
+let playfield = new PlayField();
+let blockwidth = width/playfield.columns();
+let blockheight = height/playfield.rows();
 
-var keysDown = {};
+let keysDown = {};
 
-var render = function () {
+let render = function () {
   context.fillStyle = "#000080";
   context.fillRect(0, 0, width, height);
+  context.fillStyle = "#000050";
+  context.fillRect(width + 5, 0, 120, height);
+  context.fillStyle = "#ffffff";
+  context.fillText(`Score: ${playfield.getScore()}`, width + 7, 10);
 
   context.fillStyle = "#ffff00";
   // draw field with piece
@@ -30,9 +34,9 @@ var render = function () {
   }
 };
 
-var update = function () {
-  for (var key in keysDown) {
-    var value = Number(key);
+let update = function () {
+  for (let key in keysDown) {
+    let value = Number(key);
     if (value == 37) {
       playfield.movePieceLeft();
     } else if (value == 39) {
@@ -50,12 +54,11 @@ var update = function () {
   if(++frame == framespersec)
   {
     playfield.autoPieceDown();
-    document.getElementById("score").innerHTML = playfield.getScore();
     frame = 0;
   }
 };
 
-var step = function () {
+let step = function () {
   update();
   render();
   animate(step);
