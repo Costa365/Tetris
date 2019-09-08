@@ -34,7 +34,12 @@ let render = function () {
       }
     }
   }
-  drawNextPiece();
+  if(playfield.checkForGameOver() == true){
+    drawGameOver();
+  }
+  else{
+    drawNextPiece();
+  }
 };
 
 let drawNextPiece = function (){
@@ -46,6 +51,11 @@ let drawNextPiece = function (){
       }
     }
   }
+}
+
+let drawGameOver = function (){
+  context.fillStyle = "#ffffff";
+  context.fillText(`Game Over!`, width + 7, 72);
 }
 
 let update = function () {
@@ -69,6 +79,10 @@ let update = function () {
   {
     playfield.autoPieceDown();
     frame = 0;
+
+    if(playfield.checkForGameOver() == true){
+      animate = undefined;
+    }
   }
 };
 

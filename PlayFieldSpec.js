@@ -324,10 +324,8 @@ describe('Playfield test suite', function () {
       }
 
       field = playfield.getFieldWithPiece();
-      console.log(field);
       expect(field[18]).toEqual([0,0,0,0,1,1,0,0,0,0]);
       expect(field[19]).toEqual([0,0,0,0,1,1,0,0,0,0]);
-
     })
   })
 
@@ -339,4 +337,32 @@ describe('Playfield test suite', function () {
       expect(piece[0].length).toEqual(2);
     })
   })
+
+  describe('Game over before moves', ()=>{
+    it('should not be game over', ()=>{
+      let playfield = new PlayField();
+      expect(playfield.checkForGameOver()).toEqual(false);
+    })
+  })
+
+  describe('Game over before top row filled', ()=>{
+    it('should not be game over', ()=>{
+      let playfield = new PlayField(new PieceS());
+      for(let i=0; i<50; i++){
+        playfield.autoPieceDown();
+      }
+      expect(playfield.checkForGameOver()).toEqual(false);
+    })
+  })
+
+  describe('Game over when top row filled', ()=>{
+    it('should be game over', ()=>{
+      let playfield = new PlayField(new PieceS());
+      for(let i=0; i<100; i++){
+        playfield.autoPieceDown();
+      }
+      expect(playfield.checkForGameOver()).toEqual(true);
+    })
+  })
+
 })

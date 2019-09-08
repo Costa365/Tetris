@@ -35,6 +35,16 @@ class PlayField{
       this.piece = this.defaultPiece;
       this.nextPiece = this.defaultPiece;
     }
+    this.adjustSoThatPieceStartsAtTop();
+  }
+
+  adjustSoThatPieceStartsAtTop(){
+    if(this.piece.constructor.name == 'PieceI'){
+      this.pieceY=-2;
+    }
+    else if (this.piece.constructor.name == 'PieceO'){
+      this.pieceY = 0;
+    }
   }
 
   getRandomPiece(){
@@ -43,11 +53,9 @@ class PlayField{
     switch (rnd) {
       case 0:
           piece = new PieceI();
-          this.pieceY=-2; // Adjust so that piece appears at the top
           break;
       case 1:
           piece = new PieceO();
-          this.pieceY = 0; // Adjust so that piece appears at the top
           break;
       case 2:
           piece = new PieceS();
@@ -256,6 +264,15 @@ class PlayField{
     }
 
     return completedRows;
+  }
+
+  checkForGameOver(){
+    for(let i = 0; i < this.field[0].length; i++) {
+      if(this.field[0][i] !=0){
+        return true;
+      }
+    }
+    return false;
   }
 
   freezeRows(){
