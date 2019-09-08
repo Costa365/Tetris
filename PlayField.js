@@ -74,6 +74,10 @@ class PlayField{
     return this.score.getScore();
   }
 
+  getLines(){
+    return this.score.getLines();
+  }
+
   isInBounds(i, j){
     return (this.pieceY+i>=0 && this.pieceY+i<ROWS) &&
       (this.pieceX+j>=0 && this.pieceX+j<COLUMNS);

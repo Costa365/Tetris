@@ -279,7 +279,7 @@ describe('Playfield test suite', function () {
     })
   })
 
-  describe('Fully populated row should be handle', ()=>{
+  describe('Fully populated row should be handled', ()=>{
     it('should remove full line', ()=>{
       let playfield = new PlayField(new PieceO());
 
@@ -328,6 +328,15 @@ describe('Playfield test suite', function () {
       expect(field[18]).toEqual([0,0,0,0,1,1,0,0,0,0]);
       expect(field[19]).toEqual([0,0,0,0,1,1,0,0,0,0]);
 
+    })
+  })
+
+  describe('Get next piece', ()=>{
+    it('should return valid piece', ()=>{
+      let playfield = new PlayField(new PieceO());
+      let piece = playfield.getNextPiece();
+      expect(piece.length).toEqual(2);
+      expect(piece[0].length).toEqual(2);
     })
   })
 })

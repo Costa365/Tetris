@@ -49,4 +49,31 @@ describe('Score test suite', function () {
       expect(score.getScore()).toBe(0);
     })
   })
+
+  describe('Default lines after construction', ()=>{
+    it('lines should be 0', ()=>{
+      let score = new Score();
+      
+      expect(score.getLines()).toBe(0);
+    })
+  })
+
+  describe('Lines after scoring', ()=>{
+    it('lines should be 7 after triple and tetris', ()=>{
+      let score = new Score();
+      score.rowsCompleted(3);
+      score.rowsCompleted(4);
+      expect(score.getLines()).toBe(7);
+    })
+  })
+
+  describe('Lines after reset', ()=>{
+    it('lines should be 0 after scoring then reset', ()=>{
+      let score = new Score();
+      score.rowsCompleted(3);
+      score.resetScore();
+      expect(score.getLines()).toBe(0);
+    })
+  })
+  
 })

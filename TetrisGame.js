@@ -20,8 +20,9 @@ let render = function () {
   context.fillStyle = "#000050";
   context.fillRect(width + 5, 0, 130, height);
   context.fillStyle = "#ffffff";
-  context.fillText(`Score: ${playfield.getScore()}`, width + 7, 10);
-  context.fillText(`Next: `, width + 7, 33);
+  context.fillText(`Lines: ${playfield.getLines()}`, width + 7, 10);
+  context.fillText(`Score: ${playfield.getScore()}`, width + 7, 33);
+  context.fillText(`Next: `, width + 7, 56);
 
   context.fillStyle = "#ffff00";
   // Draw field with piece
@@ -41,7 +42,7 @@ let drawNextPiece = function (){
   for(let i = 0; i < piece.length; i++) {
     for(let j = 0; j < piece[0].length; j++) {
       if(piece[i][j]==1){
-        context.fillRect(j*blockwidth  + width + 7, i*blockheight+40, blockwidth, blockheight);
+        context.fillRect(j*blockwidth  + width + 7, i*blockheight+63, blockwidth, blockheight);
       }
     }
   }
