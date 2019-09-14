@@ -19,6 +19,10 @@ class Score{
     return this.lines;
   }
 
+  getLevel(){
+    return Math.floor(this.lines / 10);
+  }
+
   rowsCompleted(numRows){
     if(numRows>0 && numRows<5){
       this.score += this.scoreMultipliers[numRows];  

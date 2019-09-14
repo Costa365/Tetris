@@ -75,5 +75,31 @@ describe('Score test suite', function () {
       expect(score.getLines()).toBe(0);
     })
   })
-  
+
+  describe('Level reporting', ()=>{
+    it('Level should be 0 after construction', ()=>{
+      let score = new Score();
+      expect(score.getLevel()).toBe(0);
+    })
+
+    it('Level should be 1 after making 12 lines', ()=>{
+      let score = new Score();
+      
+      for(let i=0; i<4; i++){
+        score.rowsCompleted(4);
+      }
+      expect(score.getLevel()).toBe(1);
+    })
+
+    it('Level should be 0 after scoring 12 and then resetting', ()=>{
+      let score = new Score();
+      
+      for(let i=0; i<4; i++){
+        score.rowsCompleted(4);
+      }
+      score.resetScore();
+
+      expect(score.getLevel()).toBe(0);
+    })
+  })
 })

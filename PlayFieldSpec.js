@@ -365,4 +365,35 @@ describe('Playfield test suite', function () {
     })
   })
 
+  describe('Drop factor', ()=>{
+    it('should be 70 after construction', ()=>{
+      let playfield = new PlayField(new PieceS());
+      
+      expect(playfield.getDropFactor()).toEqual(70);
+    })
+
+    it('should be 64 on level 1', ()=>{
+      let playfield = new PlayField(new PieceS(), 1);
+      
+      expect(playfield.getDropFactor()).toEqual(64);
+    })
+
+    it('should be 10 on level 10', ()=>{
+      let playfield = new PlayField(new PieceS(), 10);
+      
+      expect(playfield.getDropFactor()).toEqual(10);
+    })
+
+    it('should be 5 on level 15', ()=>{
+      let playfield = new PlayField(new PieceS(), 15);
+      
+      expect(playfield.getDropFactor()).toEqual(5);
+    })
+
+    it('should be 1 on level 30', ()=>{
+      let playfield = new PlayField(new PieceS(), 30);
+      
+      expect(playfield.getDropFactor()).toEqual(1);
+    })
+  })
 })

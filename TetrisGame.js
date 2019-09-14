@@ -1,9 +1,9 @@
-let animate = function (callback) { window.setTimeout(callback, 1000/10)};
+let animate = function (callback) { window.setTimeout(callback, 10)};
 	
 let canvas = document.createElement("canvas");
 let width = 300;
 let height = 600;
-let framespersec = 8;
+let framespersec = 7; // 70 -> 7
 let frame = 0;
 canvas.width = width+135;
 canvas.height = height;
@@ -22,7 +22,8 @@ let render = function () {
   context.fillStyle = "#ffffff";
   context.fillText(`Lines: ${playfield.getLines()}`, width + 7, 10);
   context.fillText(`Score: ${playfield.getScore()}`, width + 7, 33);
-  context.fillText(`Next: `, width + 7, 56);
+  context.fillText(`Level: ${playfield.getLevel()}`, width + 7, 56);
+  context.fillText(`Next: `, width + 7, 79);
 
   context.fillStyle = "#ffff00";
   // Draw field with piece
@@ -47,7 +48,7 @@ let drawNextPiece = function (){
   for(let i = 0; i < piece.length; i++) {
     for(let j = 0; j < piece[0].length; j++) {
       if(piece[i][j]==1){
-        context.fillRect(j*blockwidth  + width + 7, i*blockheight+63, blockwidth, blockheight);
+        context.fillRect(j*blockwidth  + width + 7, i*blockheight+86, blockwidth, blockheight);
       }
     }
   }
@@ -55,7 +56,7 @@ let drawNextPiece = function (){
 
 let drawGameOver = function (){
   context.fillStyle = "#ffffff";
-  context.fillText(`Game Over!`, width + 7, 72);
+  context.fillText(`Game Over!`, width + 7, 100);
 }
 
 let update = function () {
@@ -75,7 +76,7 @@ let update = function () {
     delete keysDown[value];
   }
   
-  if(++frame == framespersec)
+  if(++frame == playfield.getDropFactor())
   {
     playfield.autoPieceDown();
     frame = 0;
@@ -89,7 +90,9 @@ let update = function () {
 let step = function () {
   update();
   render();
-  animate(step);
+  if(animate != undefined){
+    animate(step);
+  }
 };
 
 

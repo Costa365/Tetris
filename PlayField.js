@@ -3,10 +3,11 @@ const ROWS = 20;
 
 class PlayField{
 
-  constructor(piece = undefined){
+  constructor(piece = undefined, startLevel = 0){
     this.defaultPiece = piece;
     this.nextPiece = piece;
     this.score = new Score();
+    this.startLevel = startLevel;
     this.clearField();
     this.createNewPiece();
   }
@@ -84,6 +85,24 @@ class PlayField{
 
   getLines(){
     return this.score.getLines();
+  }
+
+  getLevel(){
+    return this.score.getLevel() + this.startLevel;
+  }
+
+  getDropFactor(){
+    let level = this.getLevel();
+    if(level <= 10){
+      return 70 - (level * 6);
+    }
+    else {
+      let factor =  10 - (level-10)
+      if(factor < 1){
+        factor = 1;
+      }
+      return factor;
+    }
   }
 
   isInBounds(i, j){
