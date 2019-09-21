@@ -1,9 +1,19 @@
+const COLOR_S = 0x00F000;
+const COLOR_Z = 0x780000;
+const COLOR_L = 0xF0A000;
+const COLOR_O = 0xF0F000;
+const COLOR_I = 0x00F0F0;
+const COLOR_J = 0x0000F0;
+const COLOR_T = 0xA000F0;
+
+const BLANK_C = 0;
+
 class Piece{
 
   constructor(){
     this.blocks = [
-      [1, 1],
-      [1, 1]
+      [COLOR_O, COLOR_O],
+      [COLOR_O, COLOR_O]
     ];
     this.rotation = 0;
   }
@@ -50,16 +60,16 @@ class PieceI extends Piece{
     super(name);
     this.blocks = [
       [
-        [0,0,0,0],
-        [0,0,0,0],
-        [1,1,1,1],
-        [0,0,0,0]
+        [BLANK_C, BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_I, COLOR_I, COLOR_I, COLOR_I],
+        [BLANK_C, BLANK_C, BLANK_C, BLANK_C]
       ],
       [
-        [0,0,1,0],
-        [0,0,1,0],
-        [0,0,1,0],
-        [0,0,1,0]
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C],
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C],
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C],
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C]
       ]];
   }
 }
@@ -69,14 +79,14 @@ class PieceS extends Piece{
     super(name);
     this.blocks = [
       [
-        [0, 0, 0],
-        [0, 1, 1],
-        [1, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, COLOR_S, COLOR_S],
+        [COLOR_S, COLOR_S, BLANK_C]
       ],
       [
-        [1, 0, 0],
-        [1, 1, 0],
-        [0, 1, 0]
+        [COLOR_S, BLANK_C, BLANK_C],
+        [COLOR_S, COLOR_S, BLANK_C],
+        [BLANK_C, COLOR_S, BLANK_C]
       ]];
   }
 }
@@ -86,14 +96,14 @@ class PieceZ extends Piece{
     super(name);
     this.blocks = [
       [
-        [0, 0, 0],
-        [1, 1, 0],
-        [0, 1, 1]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_Z, COLOR_Z, BLANK_C],
+        [BLANK_C, COLOR_Z, COLOR_Z]
       ],
       [
-        [0, 0, 1],
-        [0, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, BLANK_C, COLOR_Z],
+        [BLANK_C, COLOR_Z, COLOR_Z],
+        [BLANK_C, COLOR_Z, BLANK_C]
       ]];
   }
 }
@@ -103,8 +113,8 @@ class PieceO extends Piece{
     super(name);
     this.blocks = [
       [
-        [1, 1],
-        [1, 1]
+        [COLOR_O, COLOR_O],
+        [COLOR_O, COLOR_O]
       ]];
   }
 }
@@ -114,24 +124,24 @@ class PieceL extends Piece{
     super(name);
     this.blocks = [
       [
-        [0, 0, 0],
-        [1, 1, 1],
-        [1, 0, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_L, COLOR_L, COLOR_L],
+        [COLOR_L, BLANK_C, BLANK_C]
       ],
       [
-        [1, 1, 0],
-        [0, 1, 0],
-        [0, 1, 0]
+        [COLOR_L, COLOR_L, BLANK_C],
+        [BLANK_C, COLOR_L, BLANK_C],
+        [BLANK_C, COLOR_L, BLANK_C]
       ],
       [
-        [0, 0, 0],
-        [0, 0, 1],
-        [1, 1, 1]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, BLANK_C, COLOR_L],
+        [COLOR_L, COLOR_L, COLOR_L]
       ],
       [
-        [0, 1, 0],
-        [0, 1, 0],
-        [0, 1, 1]
+        [BLANK_C, COLOR_L, BLANK_C],
+        [BLANK_C, COLOR_L, BLANK_C],
+        [BLANK_C, COLOR_L, COLOR_L]
       ]];
   }
 }
@@ -141,24 +151,24 @@ class PieceJ extends Piece{
     super(name);
     this.blocks = [
       [
-        [0, 0, 0],
-        [1, 1, 1],
-        [0, 0, 1]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_J, COLOR_J, COLOR_J],
+        [BLANK_C, BLANK_C, COLOR_J]
       ],
       [
-        [0, 1, 0],
-        [0, 1, 0],
-        [1, 1, 0]
+        [BLANK_C, COLOR_J, BLANK_C],
+        [BLANK_C, COLOR_J, BLANK_C],
+        [COLOR_J, COLOR_J, BLANK_C]
       ],
       [
-        [0, 0, 0],
-        [1, 0, 0],
-        [1, 1, 1]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_J, BLANK_C, BLANK_C],
+        [COLOR_J, COLOR_J, COLOR_J]
       ],
       [
-        [0, 1, 1],
-        [0, 1, 0],
-        [0, 1, 0]
+        [BLANK_C, COLOR_J, COLOR_J],
+        [BLANK_C, COLOR_J, BLANK_C],
+        [BLANK_C, COLOR_J, BLANK_C]
       ]];
   }
 }
@@ -168,24 +178,24 @@ class PieceT extends Piece{
     super(name);
     this.blocks = [
       [
-        [0, 0, 0],
-        [1, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ],
       [
-        [0, 1, 0],
-        [1, 1, 0],
-        [0, 1, 0]
+        [BLANK_C, COLOR_T, BLANK_C],
+        [COLOR_T, COLOR_T, BLANK_C],
+        [BLANK_C, COLOR_T, BLANK_C]
       ],
       [
-        [0, 0, 0],
-        [0, 1, 0],
-        [1, 1, 1]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, COLOR_T, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T]
       ],
       [
-        [0, 1, 0],
-        [0, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, COLOR_T, BLANK_C],
+        [BLANK_C, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]];
   }
 }

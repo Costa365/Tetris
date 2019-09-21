@@ -11,7 +11,8 @@ describe('Playfield test suite', function () {
       let playfield = new PlayField();
       
       for(let i=0; i<20; i++){
-        expect(playfield.field[i]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+        expect(playfield.field[i]).toEqual(
+          [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
       }
     })
   })
@@ -29,7 +30,8 @@ describe('Playfield test suite', function () {
       playfield.clearField();
       
       for(let i=0; i<20; i++){
-        expect(playfield.field[i]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+        expect(playfield.field[i]).toEqual(
+          [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
       }
     })
   })
@@ -39,7 +41,8 @@ describe('Playfield test suite', function () {
       let playfield = new PlayField(new PieceT());
       let field = playfield.getFieldWithPiece();
       
-      expect(field[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field[0]).not.toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
     })
 
     it('should return main playfield without piece', ()=>{
@@ -47,7 +50,8 @@ describe('Playfield test suite', function () {
       let field = playfield.getFieldWithPiece();
       
       for(let i=0; i<20; i++){
-        expect(playfield.field[i]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+        expect(playfield.field[i]).toEqual(
+          [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
       }
     })
   })
@@ -78,7 +82,8 @@ describe('Playfield test suite', function () {
       }
 
       let field2 = playfield.getFieldWithPiece();
-      expect(field2[17]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field2[17]).not.toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
     })
 
     it('should move the piece to the right', ()=>{
@@ -114,7 +119,8 @@ describe('Playfield test suite', function () {
       }
       let field2 = playfield.getFieldWithPiece();
 
-      expect(field2[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field2[0]).not.toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
       expect(field2[0].length).toEqual(10);
     })
   
@@ -149,7 +155,8 @@ describe('Playfield test suite', function () {
       
       let field2 = playfield.getFieldWithPiece();
 
-      expect(field2[0]).not.toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field2[0]).not.toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
       expect(field2[0].length).toEqual(10);
     })
   })
@@ -158,23 +165,31 @@ describe('Playfield test suite', function () {
     it('should rotate piece', ()=>{
       let playfield = new PlayField(new PieceT);
       let field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,1,1,1,0,0,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
       
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,1,1,0,0,0,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,1,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,1,0,0,0,0]);
-      expect(field[1]).toEqual([0,0,0,0,1,1,1,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,1,1,0,0,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,1,0,0,0,0]);     
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
     })
   })
 
@@ -189,15 +204,21 @@ describe('Playfield test suite', function () {
       }
 
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
-      expect(field[1]).toEqual([1,1,0,0,0,0,0,0,0,0]);
-      expect(field[2]).toEqual([1,0,0,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,COLOR_Z,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [COLOR_Z,COLOR_Z,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[2]).toEqual(
+        [COLOR_Z,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
-      expect(field[1]).toEqual([1,1,0,0,0,0,0,0,0,0]);
-      expect(field[2]).toEqual([1,0,0,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,COLOR_Z,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [COLOR_Z,COLOR_Z,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[2]).toEqual(
+        [COLOR_Z,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
     })
   })
 
@@ -214,27 +235,39 @@ describe('Playfield test suite', function () {
       playfield.movePieceLeft();
 
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
-      expect(field[1]).toEqual([0,1,1,0,0,0,0,0,0,0]);
-      expect(field[2]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [BLANK_C,COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[2]).toEqual(
+        [BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,0,0]);
-      expect(field[1]).toEqual([1,1,1,0,0,0,0,0,0,0]);
-      expect(field[2]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [COLOR_T,COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[2]).toEqual(
+        [BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,0]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,1,0,0,0,0,0,0,0,0]);
-      expect(field[1]).toEqual([1,1,0,0,0,0,0,0,0,0]);
-      expect(field[2]).toEqual([0,1,0,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[2]).toEqual(
+        [BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,0,0]);
-      expect(field[1]).toEqual([0,1,0,0,0,0,0,0,0,0]);
-      expect(field[2]).toEqual([1,1,1,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[1]).toEqual(
+        [BLANK_C,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[2]).toEqual(
+        [COLOR_T,COLOR_T,COLOR_T,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
 
     })
   })
@@ -248,14 +281,19 @@ describe('Playfield test suite', function () {
       }
 
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,1]);
-      expect(field[1]).toEqual([0,0,0,0,0,0,0,1,1,0]);
-      expect(field[2]).toEqual([0,0,0,0,0,0,0,0,0,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S,COLOR_S]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S,COLOR_S,BLANK_C]);
+      expect(field[2]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,1,1,0]);
-      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,1,0]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S,COLOR_S,BLANK_C]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S,BLANK_C]);
     })
   })
 
@@ -269,13 +307,17 @@ describe('Playfield test suite', function () {
       }
 
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,1]);
-      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,0,1]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S,COLOR_S]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S]);
 
       playfield.rotatePieceRight();
       field = playfield.getFieldWithPiece();
-      expect(field[0]).toEqual([0,0,0,0,0,0,0,0,1,1]);
-      expect(field[1]).toEqual([0,0,0,0,0,0,0,0,0,1]);
+      expect(field[0]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S,COLOR_S]);
+      expect(field[1]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_S]);
     })
   })
 
@@ -324,8 +366,10 @@ describe('Playfield test suite', function () {
       }
 
       field = playfield.getFieldWithPiece();
-      expect(field[18]).toEqual([0,0,0,0,1,1,0,0,0,0]);
-      expect(field[19]).toEqual([0,0,0,0,1,1,0,0,0,0]);
+      expect(field[18]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_O,COLOR_O,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
+      expect(field[19]).toEqual(
+        [BLANK_C,BLANK_C,BLANK_C,BLANK_C,COLOR_O,COLOR_O,BLANK_C,BLANK_C,BLANK_C,BLANK_C]);
     })
   })
 

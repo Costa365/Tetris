@@ -25,9 +25,9 @@ canvas.width = width+SCORE_PANEL_WIDTH;
 canvas.height = height;
 
 let render = function () {
-  context.fillStyle = "#000080";
+  context.fillStyle = "#ffffff";
   context.fillRect(0, 0, width, height);
-  context.fillStyle = "#000050";
+  context.fillStyle = "#606060";
   context.fillRect(width + 5, 0, 130, height);
   context.fillStyle = "#ffffff";
   context.font = "20px Monospace";
@@ -40,7 +40,8 @@ let render = function () {
   let field = playfield.getFieldWithPiece();
   for(let i = 0; i < field.length; i++) {
     for(let j = 0; j < field[0].length; j++) {
-      if(field[i][j]==1){
+      if(field[i][j]!=0){
+        context.fillStyle = "#" + ("000000" + field[i][j].toString(16)).substr(-6);
         context.fillRect(j*blockwidth, i*blockheight, blockwidth, blockheight);
       }
     }
@@ -60,7 +61,7 @@ let drawNextPiece = function (){
   let piece = playfield.getNextPiece();
   for(let i = 0; i < piece.length; i++) {
     for(let j = 0; j < piece[0].length; j++) {
-      if(piece[i][j]==1){
+      if(piece[i][j]!=0){
         context.fillRect(j*blockwidth  + width + SCORE_X_POS, 
           i*blockheight+NEXT_PIECE_Y_OFFSET, blockwidth, blockheight);
       }

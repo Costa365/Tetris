@@ -31,19 +31,19 @@ describe('Piece test suite', function () {
       let piece = new PieceI();
 
       expect(piece.getPiece()).toEqual([
-        [0,0,0,0],
-        [0,0,0,0],
-        [1,1,1,1],
-        [0,0,0,0]
+        [BLANK_C, BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_I, COLOR_I, COLOR_I, COLOR_I],
+        [BLANK_C, BLANK_C, BLANK_C, BLANK_C]
       ]);
 
       piece.rotateRight();
 
       expect(piece.getPiece()).toEqual([
-        [0,0,1,0],
-        [0,0,1,0],
-        [0,0,1,0],
-        [0,0,1,0]
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C],
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C],
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C],
+        [BLANK_C, BLANK_C, COLOR_I, BLANK_C]
       ]);
     })
   })
@@ -53,37 +53,37 @@ describe('Piece test suite', function () {
       let piece = new PieceT();
 
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [1, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
       
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [0, 1, 0],
-        [1, 1, 0],
-        [0, 1, 0]
+        [BLANK_C, COLOR_T, BLANK_C],
+        [COLOR_T, COLOR_T, BLANK_C],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
 
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [0, 1, 0],
-        [1, 1, 1]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, COLOR_T, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T]
       ]);
 
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [0, 1, 0],
-        [0, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, COLOR_T, BLANK_C],
+        [BLANK_C, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
 
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [1, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
     })
   })
@@ -93,23 +93,23 @@ describe('Piece test suite', function () {
       let piece = new PieceS();
 
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [0, 1, 1],
-        [1, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, COLOR_S, COLOR_S],
+        [COLOR_S, COLOR_S, BLANK_C]
       ]);
 
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [1, 0, 0],
-        [1, 1, 0],
-        [0, 1, 0]
+        [COLOR_S, BLANK_C, BLANK_C],
+        [COLOR_S, COLOR_S, BLANK_C],
+        [BLANK_C, COLOR_S, BLANK_C]
       ]);
 
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [0, 1, 1],
-        [1, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, COLOR_S, COLOR_S],
+        [COLOR_S, COLOR_S, BLANK_C]
       ]);
 
     })
@@ -120,20 +120,20 @@ describe('Piece test suite', function () {
       let piece = new PieceO();
 
       expect(piece.getPiece()).toEqual([
-        [1,1],
-        [1,1]
+        [COLOR_O, COLOR_O],
+        [COLOR_O, COLOR_O]
       ]);
 
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [1,1],
-        [1,1]
+        [COLOR_O, COLOR_O],
+        [COLOR_O, COLOR_O]
       ]);
 
       piece.rotateRight();
       expect(piece.getPiece()).toEqual([
-        [1,1],
-        [1,1]
+        [COLOR_O, COLOR_O],
+        [COLOR_O, COLOR_O]
       ]);
     })
   })
@@ -143,37 +143,37 @@ describe('Piece test suite', function () {
       let piece = new PieceT();
 
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [1, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
       
       piece.rotateLeft();
       expect(piece.getPiece()).toEqual([
-        [0, 1, 0],
-        [0, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, COLOR_T, BLANK_C],
+        [BLANK_C, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
 
       piece.rotateLeft();
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [0, 1, 0],
-        [1, 1, 1]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [BLANK_C, COLOR_T, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T]
       ]);
 
       piece.rotateLeft();
       expect(piece.getPiece()).toEqual([
-        [0, 1, 0],
-        [1, 1, 0],
-        [0, 1, 0]
+        [BLANK_C, COLOR_T, BLANK_C],
+        [COLOR_T, COLOR_T, BLANK_C],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
 
       piece.rotateLeft();
       expect(piece.getPiece()).toEqual([
-        [0, 0, 0],
-        [1, 1, 1],
-        [0, 1, 0]
+        [BLANK_C, BLANK_C, BLANK_C],
+        [COLOR_T, COLOR_T, COLOR_T],
+        [BLANK_C, COLOR_T, BLANK_C]
       ]);
     })
   })
