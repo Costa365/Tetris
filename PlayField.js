@@ -121,12 +121,7 @@ class PlayField{
   copyFieldToFieldWithPiece(){
     for(let i = 0; i < this.field.length; i++) {
       for(let j = 0; j < this.field[0].length; j++) {
-        if(this.field[i][j] == 1) {
-          this.fieldWithPiece[i][j] = 1;
-        }
-        else {
-          this.fieldWithPiece[i][j] = 0;
-        }
+        this.fieldWithPiece[i][j] = this.field[i][j];
       }
     }
   }
@@ -134,12 +129,7 @@ class PlayField{
   copyFieldWithPieceToField(){
     for(let i = 0; i < this.field.length; i++) {
       for(let j = 0; j < this.field[0].length; j++) {
-        if(this.fieldWithPiece[i][j] == 1) {
-          this.field[i][j] = 1;
-        }
-        else {
-          this.field[i][j] = 0;
-        }
+        this.field[i][j] = this.fieldWithPiece[i][j];
       }
     }
   }
@@ -148,9 +138,10 @@ class PlayField{
     this.copyFieldToFieldWithPiece();
     for(let i=0; i<this.piece.length(); i++){
       for(let j=0; j<this.piece.width(); j++){
-        if(this.piece.getPiece()[i][j] == 1) {
+        let cell = this.piece.getPiece()[i][j];
+        if(cell != 0) {
           if(this.isInBounds(i,j)){
-            this.fieldWithPiece[this.pieceY+i][this.pieceX+j] = 1;
+            this.fieldWithPiece[this.pieceY+i][this.pieceX+j] = cell;
           }
         }
       }
@@ -170,7 +161,7 @@ class PlayField{
     for(let i=0; i<this.piece.length(); i++){
       for(let j=0; j<this.piece.width(); j++){
         let newPeice = this.piece.getPiece()[i][j];
-        if(this.pieceY+i >= ROWS && newPeice==1){
+        if(this.pieceY+i >= ROWS && newPeice!=0){
           this.pieceY--;
           return false;
         }
@@ -179,7 +170,7 @@ class PlayField{
           existingPeice = this.field[this.pieceY+i][this.pieceX+j];
         }
 
-        if(existingPeice == 1 && newPeice == 1){
+        if(existingPeice != 0 && newPeice != 0){
           this.pieceY--;
           return false;
         }
@@ -192,7 +183,7 @@ class PlayField{
     this.pieceX++;
     for(let i=0; i<this.piece.length(); i++){
       for(let j=0; j<this.piece.width(); j++){
-        if(this.pieceX+j >= COLUMNS && this.piece.getPiece()[i][j]==1){
+        if(this.pieceX+j >= COLUMNS && this.piece.getPiece()[i][j]!=0){
           this.pieceX--;
           return false;
         }
@@ -200,8 +191,9 @@ class PlayField{
         if(this.isInBounds(i,j)){
           existing = this.field[this.pieceY+i][this.pieceX+j];
         }
+
         let piece = this.piece.getPiece()[i][j];
-        if(existing == 1 && piece == 1){
+        if(existing != 0 && piece != 0){
           this.pieceX--;
           return false;
         }
@@ -214,7 +206,7 @@ class PlayField{
     this.pieceX--;
     for(let i=0; i<this.piece.length(); i++){
       for(let j=0; j<this.piece.width(); j++){
-        if(this.pieceX+j < 0 && this.piece.getPiece()[i][j]==1){
+        if(this.pieceX+j < 0 && this.piece.getPiece()[i][j]!=0){
           this.pieceX++;
           return false;
         }
@@ -224,7 +216,7 @@ class PlayField{
         }
         
         let piece = this.piece.getPiece()[i][j];
-        if(existing == 1 && piece == 1){
+        if(existing != 0 && piece != 0){
           this.pieceX++;
           return false;
         }
@@ -249,7 +241,7 @@ class PlayField{
         }
         
         let piece = this.piece.getPiece()[i][j];
-        if(existing == 1 && piece == 1){
+        if(existing != 0 && piece != 0){
           this.piece.rotateLeft();
         }
       }
