@@ -1,5 +1,9 @@
 const COLUMNS = 10;
 const ROWS = 20;
+const ROTATE_RIGHT = 0;
+const ROTATE_LEFT = 1;
+const MOVE_RIGHT = 0;
+const MOVE_LEFT = 1;
 
 class PlayField{
 
@@ -180,44 +184,29 @@ class PlayField{
   }
 
   movePieceRight(){
-    this.pieceX++;
-    for(let i=0; i<this.piece.length(); i++){
-      for(let j=0; j<this.piece.width(); j++){
-        if(this.pieceX+j >= COLUMNS && this.piece.getPiece()[i][j]!=0){
-          this.pieceX--;
-          return false;
-        }
-        let existing = 0;
-        if(this.isInBounds(i,j)){
-          existing = this.field[this.pieceY+i][this.pieceX+j];
-        }
-
-        let piece = this.piece.getPiece()[i][j];
-        if(existing != 0 && piece != 0){
-          this.pieceX--;
-          return false;
-        }
-      }
-    }
-    return true;
+    return this.movePiece(MOVE_RIGHT);
   }
 
   movePieceLeft(){
-    this.pieceX--;
+    return this.movePiece(MOVE_LEFT);
+  }
+
+  movePiece(direction){
+    (direction == MOVE_RIGHT) ? this.pieceX++ : this.pieceX--;
     for(let i=0; i<this.piece.length(); i++){
       for(let j=0; j<this.piece.width(); j++){
-        if(this.pieceX+j < 0 && this.piece.getPiece()[i][j]!=0){
-          this.pieceX++;
+        if((this.pieceX+j >= COLUMNS || this.pieceX+j < 0)  && this.piece.getPiece()[i][j]!=0){
+          (direction == MOVE_RIGHT) ? this.pieceX-- : this.pieceX++;
           return false;
         }
         let existing = 0;
         if(this.isInBounds(i,j)){
           existing = this.field[this.pieceY+i][this.pieceX+j];
         }
-        
+
         let piece = this.piece.getPiece()[i][j];
         if(existing != 0 && piece != 0){
-          this.pieceX++;
+          (direction == MOVE_RIGHT) ? this.pieceX-- : this.pieceX++;
           return false;
         }
       }
@@ -226,11 +215,19 @@ class PlayField{
   }
 
   rotatePieceRight(){
+    return this.rotatePiece(ROTATE_RIGHT);
+  }
+
+  rotatePieceLeft(){
+    return this.rotatePiece(ROTATE_LEFT);
+  }
+
+  rotatePiece(direction){
     //console.log(`x:${this.pieceX}, y:${this.pieceY}, len:${this.piece.length()}, width:${this.piece.width()}, firstCol:${this.piece.firstColumn()}`);
     if(this.pieceX >= 0 && this.pieceX+this.piece.width() <= COLUMNS && 
-      this.pieceY+this.piece.length() <=ROWS)
+    this.pieceY+this.piece.length() <=ROWS)
     {
-      this.piece.rotateRight();
+      (direction == ROTATE_LEFT) ? this.piece.rotateLeft() : this.piece.rotateRight();
     }
 
     for(let i=0; i<this.piece.length(); i++){
@@ -242,7 +239,7 @@ class PlayField{
         
         let piece = this.piece.getPiece()[i][j];
         if(existing != 0 && piece != 0){
-          this.piece.rotateLeft();
+          (direction == ROTATE_LEFT) ? this.piece.rotateRight() : this.piece.rotateLeft();
         }
       }
     }

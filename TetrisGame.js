@@ -86,9 +86,9 @@ let update = function () {
     } else if (value == 40) {
       playfield.movePieceDown();
     } else if (value == 90) {
-      playfield.rotatePieceRight();
+      playfield.rotatePieceLeft();
     } else if (value == 88) {
-      // rotate left (x)
+      playfield.rotatePieceRight();
     }
     delete keysDown[value];
   }
