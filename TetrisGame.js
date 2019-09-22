@@ -78,6 +78,7 @@ let drawGameOver = function (){
 
 let update = function () {
   for (let key in keysDown) {
+    console.log(key);
     let value = Number(key);
     if (value == 37) {
       playfield.movePieceLeft();
@@ -121,4 +122,17 @@ window.addEventListener("keydown", function (event) {
 
 window.addEventListener("keyup", function (event) {
   delete keysDown[event.keyCode];
+});
+
+window.addEventListener("touchstart", function (event) {
+  let touchobj = event.changedTouches[0]; // reference first touch point (ie: first finger)
+  if(touchobj.clientX<100){
+    keysDown[37] = true;
+  }
+  else if(touchobj.clientX>200){
+    keysDown[39] = true;
+  } 
+  else{
+    keysDown[90] = true;
+  }
 });
