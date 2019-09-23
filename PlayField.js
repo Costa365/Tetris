@@ -10,8 +10,12 @@ class PlayField{
   constructor(piece = undefined, startLevel = 0){
     this.defaultPiece = piece;
     this.nextPiece = piece;
-    this.score = new Score();
     this.startLevel = startLevel;
+    this.restart();
+  }
+
+  restart(){
+    this.score = new Score();
     this.clearField();
     this.createNewPiece();
   }
