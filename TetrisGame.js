@@ -13,10 +13,10 @@ const BUTTON_Y_POS = 200;
 const BUTTON_WIDTH = 148;
 const BUTTON_HEIGHT = 30;
 
-const SCORE_BACKGROUND_COLOR = "#5050D0";
+const SCORE_BACKGROUND_COLOR = "#000040";
 const FIELD_BACKGROUND_COLOR = "#ffffff";
 const SCORE_TEXT_COLOR = "#ffffff";
-const BUTTON_COLOR = "#40A0E0";
+const BUTTON_COLOR = "#3030A0";
 const STATE_IDLE = 0;
 const STATE_PLAY = 1;
 const STATE_PAUSE = 2;
