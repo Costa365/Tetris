@@ -13,10 +13,12 @@ const BUTTON_Y_POS = 200;
 const BUTTON_WIDTH = 148;
 const BUTTON_HEIGHT = 30;
 
-const SCORE_BACKGROUND_COLOR = "#000040";
+const SCORE_BACKGROUND_COLOR = "#000000";
 const FIELD_BACKGROUND_COLOR = "#ffffff";
 const SCORE_TEXT_COLOR = "#ffffff";
-const BUTTON_COLOR = "#3030A0";
+const BUTTON_COLOR = "#505050";
+const PIECE_BORDER_COLOR = "#000000";
+
 const STATE_IDLE = 0;
 const STATE_PLAY = 1;
 const STATE_PAUSE = 2;
@@ -43,7 +45,7 @@ context.font = "20px Monospace";
 
 let render = function () {
   context.fillStyle = FIELD_BACKGROUND_COLOR;
-  context.fillRect(0, 0, width, height);
+  context.fillRect(0, 0, width+1, height);
   
   drawScorePanel();
 
@@ -53,12 +55,21 @@ let render = function () {
     for(let i = 0; i < field.length; i++) {
       for(let j = 0; j < field[0].length; j++) {
         if(field[i][j]!=0){
+          let x = j*blockwidth;
+          let y = i*blockheight;
           context.fillStyle = "#" + ("000000" + field[i][j].toString(16)).substr(-6);
-          context.fillRect(j*blockwidth, i*blockheight, blockwidth, blockheight);
+          context.fillRect(x, y, blockwidth, blockheight);
+
+          context.lineWidth = 1;
+          context.strokeStyle = PIECE_BORDER_COLOR;
+          context.beginPath();
+          context.rect(x,y, blockwidth, blockheight);
+          context.stroke();
         }
       }
     }
   }
+
   if(state == STATE_GAME_OVER){
     drawGameOver();
   }
@@ -94,7 +105,7 @@ let drawActionButton = function (){
       btnText = "Continue";
       break;
     case STATE_GAME_OVER:
-      btnText = "Continue";
+      btnText = "Start";
       break;
   }
 
@@ -110,8 +121,14 @@ let drawNextPiece = function (){
     for(let i = 0; i < piece.length; i++) {
       for(let j = 0; j < piece[0].length; j++) {
         if(piece[i][j]!=0){
-          context.fillRect(j*blockwidth  + width + SCORE_X_POS, 
-            i*blockheight+NEXT_PIECE_Y_OFFSET, blockwidth, blockheight);
+          let x = j*blockwidth + width + SCORE_X_POS;
+          let y = i*blockheight+NEXT_PIECE_Y_OFFSET;
+          
+          context.fillRect(x, y, blockwidth, blockheight);
+          context.strokeStyle = 'black';
+          context.beginPath();
+          context.rect(x, y, blockwidth, blockheight);
+          context.stroke();
         }
       }
     }
