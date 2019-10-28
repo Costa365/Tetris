@@ -1,5 +1,6 @@
-const CANVAS_WIDTH = 300;
-const CANVAS_HEIGHT = 600;
+const PLAYFIELD_WIDTH = 400;
+const PLAYFIELD_HEIGHT = 800;
+
 const SCORE_X_POS = 4;
 const LINES_Y_POS = 17;
 const SCORE_Y_POS = 41;
@@ -8,10 +9,11 @@ const NEXT_Y_POS = 89;
 const GAME_OVER_Y_POS = 89;
 const NEXT_PIECE_Y_OFFSET = 96;
 const SCORE_PANEL_WIDTH = 160;
-const BUTTON_X_POS = CANVAS_WIDTH+8;
 const BUTTON_Y_POS = 200;
 const BUTTON_WIDTH = 148;
 const BUTTON_HEIGHT = 30;
+const KEYS_Y_POS = 260;
+const KEYS2_Y_POS = 278;
 
 const SCORE_BACKGROUND_COLOR = "#000000";
 const FIELD_BACKGROUND_COLOR = "#ffffff";
@@ -29,23 +31,42 @@ let state = STATE_IDLE;
 let animate = function (callback) { window.setTimeout(callback, 10)};
 
 let canvas = document.createElement("canvas");
-let width = CANVAS_WIDTH;
-let height = CANVAS_HEIGHT;
+let playfieldWidth = PLAYFIELD_WIDTH;
+let playfieldHeight = PLAYFIELD_HEIGHT;
+adjustDimensions();
+
 let frame = 0;
 let context = canvas.getContext('2d');
 let playfield = new PlayField();
-let blockwidth = width/playfield.columns();
-let blockheight = height/playfield.rows();
+let blockwidth = playfieldWidth/playfield.columns();
+let blockheight = playfieldHeight/playfield.rows();
+let buttonXPos = playfieldWidth+8;
 let keysDown = {};
 
-canvas.width = width+SCORE_PANEL_WIDTH;
-canvas.height = height;
+canvas.width = playfieldWidth+SCORE_PANEL_WIDTH;
+canvas.height = playfieldHeight;
 canvas.style = "border:1px solid " + SCORE_BACKGROUND_COLOR;
 context.font = "20px Monospace";
 
+function adjustDimensions() {
+  let availablePlayFieldWidth = window.innerWidth-20 - SCORE_PANEL_WIDTH;
+  let availablePlayFieldHeight = window.innerHeight-20;
+  if(availablePlayFieldHeight < PLAYFIELD_HEIGHT || availablePlayFieldWidth < PLAYFIELD_WIDTH)
+  {
+    if(availablePlayFieldHeight > availablePlayFieldWidth*2){
+      playfieldWidth = availablePlayFieldWidth;
+      playfieldHeight = availablePlayFieldWidth*2;
+    }
+    else{
+      playfieldHeight = availablePlayFieldHeight;
+      playfieldWidth = availablePlayFieldHeight/2;
+    }
+  }
+};
+
 let render = function () {
   context.fillStyle = FIELD_BACKGROUND_COLOR;
-  context.fillRect(0, 0, width+1, height);
+  context.fillRect(0, 0, playfieldWidth+1, playfieldHeight);
   
   drawScorePanel();
 
@@ -80,17 +101,22 @@ let render = function () {
 
 let drawScorePanel = function (){
   context.fillStyle = SCORE_BACKGROUND_COLOR;
-  context.fillRect(width + 2, 0, SCORE_PANEL_WIDTH, height);
+  context.fillRect(playfieldWidth + 2, 0, SCORE_PANEL_WIDTH, playfieldHeight);
   context.fillStyle = SCORE_TEXT_COLOR;
-  context.fillText(`Lines: ${playfield.getLines()}`, width + SCORE_X_POS, LINES_Y_POS);
-  context.fillText(`Score: ${playfield.getScore()}`, width + SCORE_X_POS, SCORE_Y_POS);
-  context.fillText(`Level: ${playfield.getLevel()}`, width + SCORE_X_POS, LEVEL_Y_POS);
+  context.fillText(`Lines: ${playfield.getLines()}`, playfieldWidth + SCORE_X_POS, LINES_Y_POS);
+  context.fillText(`Score: ${playfield.getScore()}`, playfieldWidth + SCORE_X_POS, SCORE_Y_POS);
+  context.fillText(`Level: ${playfield.getLevel()}`, playfieldWidth + SCORE_X_POS, LEVEL_Y_POS);
   drawActionButton();
+
+  context.font = "italic 15px Monospace";
+  context.fillText(`Move:   Arrow keys`, playfieldWidth + SCORE_X_POS, KEYS_Y_POS);
+  context.fillText(`Rotate: Z/X`, playfieldWidth + SCORE_X_POS, KEYS2_Y_POS);
+  context.font = "20px Monospace";
 } 
 
 let drawActionButton = function (){
   context.fillStyle = BUTTON_COLOR;
-  context.fillRect(BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT);
+  context.fillRect(buttonXPos, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT);
   context.fillStyle = SCORE_TEXT_COLOR;
   let btnText = "";
 
@@ -109,19 +135,19 @@ let drawActionButton = function (){
       break;
   }
 
-  let btnX = BUTTON_X_POS + ((BUTTON_WIDTH - context.measureText(btnText).width)/2);
+  let btnX = buttonXPos + ((BUTTON_WIDTH - context.measureText(btnText).width)/2);
   context.fillText(btnText, btnX, 222);
 }
 
 let drawNextPiece = function (){
   if(state != STATE_IDLE){
     context.fillStyle = SCORE_TEXT_COLOR;
-    context.fillText(`Next: `, width + SCORE_X_POS, NEXT_Y_POS);
+    context.fillText(`Next: `, playfieldWidth + SCORE_X_POS, NEXT_Y_POS);
     let piece = playfield.getNextPiece();
     for(let i = 0; i < piece.length; i++) {
       for(let j = 0; j < piece[0].length; j++) {
         if(piece[i][j]!=0){
-          let x = j*blockwidth + width + SCORE_X_POS;
+          let x = j*blockwidth + playfieldWidth + SCORE_X_POS;
           let y = i*blockheight+NEXT_PIECE_Y_OFFSET;
           
           context.fillRect(x, y, blockwidth, blockheight);
@@ -137,7 +163,7 @@ let drawNextPiece = function (){
 
 let drawGameOver = function (){
   context.fillStyle = SCORE_TEXT_COLOR;
-  context.fillText(`Game Over!`, width + SCORE_X_POS, GAME_OVER_Y_POS);
+  context.fillText(`Game Over!`, playfieldWidth + SCORE_X_POS, GAME_OVER_Y_POS);
 }
 
 let update = function () {
@@ -194,8 +220,8 @@ window.addEventListener("keyup", function (event) {
 
 canvas.addEventListener('click', function(event) {
   if (
-    event.x > BUTTON_X_POS && 
-    event.x < BUTTON_X_POS + BUTTON_WIDTH &&
+    event.x > buttonXPos && 
+    event.x < buttonXPos + BUTTON_WIDTH &&
     event.y > BUTTON_Y_POS && 
     event.y < BUTTON_Y_POS + BUTTON_HEIGHT) {
       switch(state){
