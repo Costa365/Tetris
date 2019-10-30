@@ -108,9 +108,9 @@ let drawScorePanel = function (){
   context.fillText(`Level: ${playfield.getLevel()}`, playfieldWidth + SCORE_X_POS, LEVEL_Y_POS);
   drawActionButton();
 
-  context.font = "italic 15px Monospace";
+  context.font = "italic 13px Monospace";
   context.fillText(`Move:   Arrow keys`, playfieldWidth + SCORE_X_POS, KEYS_Y_POS);
-  context.fillText(`Rotate: Z/X`, playfieldWidth + SCORE_X_POS, KEYS2_Y_POS);
+  context.fillText(`Rotate: Z / X`, playfieldWidth + SCORE_X_POS, KEYS2_Y_POS);
   context.font = "20px Monospace";
 } 
 
