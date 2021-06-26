@@ -1,6 +1,8 @@
 # Tetris
 
-Tetris clone written in pure JavaScript (ES6)
+Tetris clone written in pure JavaScript (ES6).
+
+Game can be played at [http://costa365.rf.gd/tetris/](http://costa365.rf.gd/tetris/)
 
 ## Tests
 
