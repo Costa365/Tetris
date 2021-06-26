@@ -1,3 +1,4 @@
+const HEADER_OFFSET = 70;
 const PLAYFIELD_WIDTH = 400;
 const PLAYFIELD_HEIGHT = 800;
 
@@ -15,10 +16,10 @@ const BUTTON_HEIGHT = 30;
 const KEYS_Y_POS = 260;
 const KEYS2_Y_POS = 278;
 
-const SCORE_BACKGROUND_COLOR = "#000000";
+const SCORE_BACKGROUND_COLOR = "#E03020";
 const FIELD_BACKGROUND_COLOR = "#ffffff";
 const SCORE_TEXT_COLOR = "#ffffff";
-const BUTTON_COLOR = "#505050";
+const BUTTON_COLOR = "#990000";
 const PIECE_BORDER_COLOR = "#000000";
 
 const STATE_IDLE = 0;
@@ -42,15 +43,19 @@ let blockwidth = playfieldWidth/playfield.columns();
 let blockheight = playfieldHeight/playfield.rows();
 let buttonXPos = playfieldWidth+8;
 let keysDown = {};
+var clearedRowsSound = new Audio("cleared.mp3");
+var clearedTetrisSound = new Audio("cleared-tetris.mp3");
 
 canvas.width = playfieldWidth+SCORE_PANEL_WIDTH;
 canvas.height = playfieldHeight;
 canvas.style = "border:1px solid " + SCORE_BACKGROUND_COLOR;
 context.font = "20px Monospace";
 
+document.getElementById('header').width = canvas.width;
+
 function adjustDimensions() {
   let availablePlayFieldWidth = window.innerWidth-20 - SCORE_PANEL_WIDTH;
-  let availablePlayFieldHeight = window.innerHeight-20;
+  let availablePlayFieldHeight = window.innerHeight-HEADER_OFFSET-20;
   if(availablePlayFieldHeight < PLAYFIELD_HEIGHT || availablePlayFieldWidth < PLAYFIELD_WIDTH)
   {
     if(availablePlayFieldHeight > availablePlayFieldWidth*2){
@@ -107,11 +112,6 @@ let drawScorePanel = function (){
   context.fillText(`Score: ${playfield.getScore()}`, playfieldWidth + SCORE_X_POS, SCORE_Y_POS);
   context.fillText(`Level: ${playfield.getLevel()}`, playfieldWidth + SCORE_X_POS, LEVEL_Y_POS);
   drawActionButton();
-
-  context.font = "italic 13px Monospace";
-  context.fillText(`Move:   Arrow keys`, playfieldWidth + SCORE_X_POS, KEYS_Y_POS);
-  context.fillText(`Rotate: Z / X`, playfieldWidth + SCORE_X_POS, KEYS2_Y_POS);
-  context.font = "20px Monospace";
 } 
 
 let drawActionButton = function (){
@@ -185,9 +185,15 @@ let update = function () {
   if(state == STATE_PLAY){
     if(++frame == playfield.getDropFactor())
     {
-      playfield.autoPieceDown();
+      let completedRows = playfield.autoPieceDown();
+      if(completedRows==4){
+        clearedTetrisSound.play();
+      }
+      else if(completedRows>0){
+        clearedRowsSound.play();
+      }
+
       frame = 0;
-  
       if(playfield.checkForGameOver() == true){
         state = STATE_GAME_OVER;
       }
@@ -222,8 +228,8 @@ canvas.addEventListener('click', function(event) {
   if (
     event.x > buttonXPos && 
     event.x < buttonXPos + BUTTON_WIDTH &&
-    event.y > BUTTON_Y_POS && 
-    event.y < BUTTON_Y_POS + BUTTON_HEIGHT) {
+    event.y > BUTTON_Y_POS+HEADER_OFFSET && 
+    event.y < BUTTON_Y_POS+HEADER_OFFSET + BUTTON_HEIGHT) {
       switch(state){
         case STATE_IDLE:
             state = STATE_PLAY;

@@ -159,9 +159,9 @@ class PlayField{
 
   autoPieceDown(){
     if(this.movePieceDown() == false){
-      this.freezeRows();
+      return this.freezeRows();
     }
-    return true;
+    return 0;
   }
 
   movePieceDown(){
@@ -291,7 +291,9 @@ class PlayField{
     this.getFieldWithPiece();
     this.copyFieldWithPieceToField();
     this.createNewPiece();
-    this.score.rowsCompleted(this.checkForCompletedRows());
+    let completedRows = this.checkForCompletedRows();
+    this.score.rowsCompleted(completedRows);
+    return completedRows;
   }
 
   getNextPiece(){
