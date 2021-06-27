@@ -43,8 +43,11 @@ let blockwidth = playfieldWidth/playfield.columns();
 let blockheight = playfieldHeight/playfield.rows();
 let buttonXPos = playfieldWidth+8;
 let keysDown = {};
-var clearedRowsSound = new Audio("cleared.mp3");
-var clearedTetrisSound = new Audio("cleared-tetris.mp3");
+let clearedRowsSound = new Audio("cleared.mp3");
+let clearedTetrisSound = new Audio("cleared-tetris.mp3");
+let startSound = new Audio("start.mp3");
+let dropSound = new Audio("drop.mp3");
+let bottomSound = new Audio("bottom.mp3");
 
 canvas.width = playfieldWidth+SCORE_PANEL_WIDTH;
 canvas.height = playfieldHeight;
@@ -192,6 +195,9 @@ let update = function () {
       else if(completedRows>0){
         clearedRowsSound.play();
       }
+      else if(completedRows==0){
+        bottomSound.play();
+      }
 
       frame = 0;
       if(playfield.checkForGameOver() == true){
@@ -233,6 +239,7 @@ canvas.addEventListener('click', function(event) {
       switch(state){
         case STATE_IDLE:
             state = STATE_PLAY;
+            startSound.play();
           break;
         case STATE_PLAY:
             state = STATE_PAUSE;

@@ -161,7 +161,7 @@ class PlayField{
     if(this.movePieceDown() == false){
       return this.freezeRows();
     }
-    return 0;
+    return -1;
   }
 
   movePieceDown(){
