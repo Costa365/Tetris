@@ -10,7 +10,8 @@ const NEXT_Y_POS = 89;
 const GAME_OVER_Y_POS = 89;
 const NEXT_PIECE_Y_OFFSET = 96;
 const SCORE_PANEL_WIDTH = 160;
-const BUTTON_Y_POS = 200;
+const BUTTON_START_Y_POS = 180;
+const BUTTON_SOUND_Y_POS = 217;
 const BUTTON_WIDTH = 148;
 const BUTTON_HEIGHT = 30;
 const KEYS_Y_POS = 260;
@@ -27,7 +28,11 @@ const STATE_PLAY = 1;
 const STATE_PAUSE = 2;
 const STATE_GAME_OVER = 3;
 
+const STATE_SOUND_OFF = 0;
+const STATE_SOUND_ON = 1;
+
 let state = STATE_IDLE;
+let soundState = STATE_SOUND_OFF;
 
 let animate = function (callback) { window.setTimeout(callback, 10)};
 
@@ -115,11 +120,12 @@ let drawScorePanel = function (){
   context.fillText(`Score: ${playfield.getScore()}`, playfieldWidth + SCORE_X_POS, SCORE_Y_POS);
   context.fillText(`Level: ${playfield.getLevel()}`, playfieldWidth + SCORE_X_POS, LEVEL_Y_POS);
   drawActionButton();
+  drawSoundButton();
 } 
 
 let drawActionButton = function (){
   context.fillStyle = BUTTON_COLOR;
-  context.fillRect(buttonXPos, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT);
+  context.fillRect(buttonXPos, BUTTON_START_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT);
   context.fillStyle = SCORE_TEXT_COLOR;
   let btnText = "";
 
@@ -139,7 +145,26 @@ let drawActionButton = function (){
   }
 
   let btnX = buttonXPos + ((BUTTON_WIDTH - context.measureText(btnText).width)/2);
-  context.fillText(btnText, btnX, 222);
+  context.fillText(btnText, btnX, BUTTON_START_Y_POS+22);
+}
+
+let drawSoundButton = function (){
+  context.fillStyle = BUTTON_COLOR;
+  context.fillRect(buttonXPos, BUTTON_SOUND_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT);
+  context.fillStyle = SCORE_TEXT_COLOR;
+  let btnText = "";
+
+  switch(soundState){
+    case STATE_SOUND_OFF:
+      btnText = "Sound: Off";
+      break;
+    case STATE_SOUND_ON:
+      btnText = "Sound: On";
+      break;
+  }
+
+  let btnX = buttonXPos + ((BUTTON_WIDTH - context.measureText(btnText).width)/2);
+  context.fillText(btnText, btnX, BUTTON_SOUND_Y_POS+22);
 }
 
 let drawNextPiece = function (){
@@ -189,14 +214,16 @@ let update = function () {
     if(++frame == playfield.getDropFactor())
     {
       let completedRows = playfield.autoPieceDown();
-      if(completedRows==4){
-        clearedTetrisSound.play();
-      }
-      else if(completedRows>0){
-        clearedRowsSound.play();
-      }
-      else if(completedRows==0){
-        bottomSound.play();
+      if(soundState == STATE_SOUND_ON) {
+        if(completedRows==4){
+          clearedTetrisSound.play();
+        }
+        else if(completedRows>0){
+          clearedRowsSound.play();
+        }
+        else if(completedRows==0){
+          bottomSound.play();
+        }
       }
 
       frame = 0;
@@ -230,16 +257,18 @@ window.addEventListener("keyup", function (event) {
   }
 });
 
-canvas.addEventListener('click', function(event) {
+let handleActionClick = function (event) {
   if (
-    event.x > buttonXPos && 
-    event.x < buttonXPos + BUTTON_WIDTH &&
-    event.y > BUTTON_Y_POS+HEADER_OFFSET && 
-    event.y < BUTTON_Y_POS+HEADER_OFFSET + BUTTON_HEIGHT) {
+    event.x > buttonXPos+8 && 
+    event.x < buttonXPos+8 + BUTTON_WIDTH &&
+    event.y > BUTTON_START_Y_POS+HEADER_OFFSET+8 && 
+    event.y < BUTTON_START_Y_POS+HEADER_OFFSET+8 + BUTTON_HEIGHT) {
       switch(state){
         case STATE_IDLE:
             state = STATE_PLAY;
-            startSound.play();
+            if(soundState == STATE_SOUND_ON){
+              startSound.play();
+            }
           break;
         case STATE_PLAY:
             state = STATE_PAUSE;
@@ -265,4 +294,28 @@ canvas.addEventListener('click', function(event) {
       keysDown[90] = true;
     }
   }
+};
+
+let handleSoundClick = function (event) {
+  if (
+    event.x > buttonXPos+8 && 
+    event.x < buttonXPos+8 + BUTTON_WIDTH &&
+    event.y > BUTTON_SOUND_Y_POS+HEADER_OFFSET+8 && 
+    event.y < BUTTON_SOUND_Y_POS+HEADER_OFFSET+8 + BUTTON_HEIGHT) {
+      switch(soundState){
+        case STATE_SOUND_OFF:
+          soundState = STATE_SOUND_ON;
+          break;
+        case STATE_SOUND_ON:
+          soundState = STATE_SOUND_OFF;
+        break;
+      }
+      drawSoundButton();
+    return;
+  }
+};
+
+canvas.addEventListener('click', function(event) {
+  handleActionClick(event);
+  handleSoundClick(event);
 });
