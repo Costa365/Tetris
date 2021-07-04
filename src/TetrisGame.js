@@ -48,11 +48,10 @@ let blockwidth = playfieldWidth/playfield.columns();
 let blockheight = playfieldHeight/playfield.rows();
 let buttonXPos = playfieldWidth+8;
 let keysDown = {};
-let clearedRowsSound = new Audio("cleared.mp3");
-let clearedTetrisSound = new Audio("cleared-tetris.mp3");
-let startSound = new Audio("start.mp3");
-let dropSound = new Audio("drop.mp3");
-let bottomSound = new Audio("bottom.mp3");
+let clearedRowsSound = new AudioWithReplay("cleared.mp3");
+let clearedTetrisSound = new AudioWithReplay("cleared-tetris.mp3");
+let startSound = new AudioWithReplay("start.mp3");
+let bottomSound = new AudioWithReplay("bottom.mp3");
 
 canvas.width = playfieldWidth+SCORE_PANEL_WIDTH;
 canvas.height = playfieldHeight;
@@ -194,6 +193,26 @@ let drawGameOver = function (){
   context.fillText(`Game Over!`, playfieldWidth + SCORE_X_POS, GAME_OVER_Y_POS);
 }
 
+let playStartSound = function(){
+  if(soundState == STATE_SOUND_ON){
+    startSound.play();
+  }
+}
+
+let playCompletedRowsSound = function(completedRows) {
+  if(soundState == STATE_SOUND_ON) {
+    if(completedRows==4){
+      clearedTetrisSound.play();
+    }
+    else if(completedRows>0){
+      clearedRowsSound.play();
+    }
+    else if(completedRows==0){
+      bottomSound.play();
+    }
+  }
+}
+
 let update = function () {
   for (let key in keysDown) {
     let value = Number(key);
@@ -214,17 +233,7 @@ let update = function () {
     if(++frame == playfield.getDropFactor())
     {
       let completedRows = playfield.autoPieceDown();
-      if(soundState == STATE_SOUND_ON) {
-        if(completedRows==4){
-          clearedTetrisSound.play();
-        }
-        else if(completedRows>0){
-          clearedRowsSound.play();
-        }
-        else if(completedRows==0){
-          bottomSound.play();
-        }
-      }
+      playCompletedRowsSound(completedRows);
 
       frame = 0;
       if(playfield.checkForGameOver() == true){
@@ -266,9 +275,7 @@ let handleActionClick = function (event) {
       switch(state){
         case STATE_IDLE:
             state = STATE_PLAY;
-            if(soundState == STATE_SOUND_ON){
-              startSound.play();
-            }
+            playStartSound();
           break;
         case STATE_PLAY:
             state = STATE_PAUSE;
